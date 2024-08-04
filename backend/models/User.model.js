@@ -27,31 +27,30 @@ const UserSchema = new mongoose.Schema({
     role: {
         type: String,
         required: [true, "Role is required"],
-        enum: [jobSeeker, employer]
+        enum: ["jobSeeker", "employer"]
     },
-    profile: {
-        bio: {
-            type: String,
-        },
-        skills: [
-            {
-                type: String
-            }
-        ],
-        resume: {
-            type: String // url aayegi cloudnary ki
-        },
-        resumeOrginalName: {
+
+    bio: {
+        type: String,
+    },
+    skills: [
+        {
             type: String
-        },
-        company: {
-            type: Schema.Types.ObjectId,
-            ref: "Company"
-        },
-        avatar: {
-            type: String,
-            default: ""
         }
+    ],
+    resume: {
+        type: String // url aayegi cloudnary ki
+    },
+    resumeOrginalName: {
+        type: String
+    },
+    company: {
+        type: Schema.Types.ObjectId,
+        ref: "Company"
+    },
+    avatar: {
+        type: String,
+        default: ""
     },
     refreshToken: {
         type: String
@@ -80,7 +79,7 @@ UserSchema.methods.generateAccessToken = function () {
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
-            expiresIn: ACCESS_TOKEN_EXPIRY
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
         }
     )
 }
@@ -92,7 +91,7 @@ UserSchema.methods.generateRefreshToken = function () {
         },
         process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn: REFRESH_TOKEN_EXPIRY,
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
         }
     )
 }
