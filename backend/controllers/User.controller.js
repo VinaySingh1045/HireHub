@@ -84,10 +84,16 @@ const userRegistration = AsyncHandler(async (req, res) => {
 })
 
 const userLogin = AsyncHandler(async (req, res) => {
-    const { email, password } = req.body
+    const { email, password, role } = req.body
 
     if (!email) {
         throw new ApiError(400, "Email field is required");
+    }
+    if (!password) {
+        throw new ApiError(400, "Password field is required");
+    }
+    if (!role) {
+        throw new ApiError(400, "Role field is required");
     }
 
     const user = await User.findOne({ email })
@@ -100,6 +106,11 @@ const userLogin = AsyncHandler(async (req, res) => {
 
     if (!isPasswordValidate) {
         throw new ApiError(401, "Invaild User Credentials");
+    }
+
+     // Check if the user's role matches the provided role
+     if (user.role !== role) {
+        throw new ApiError(403, "User does not exist with current role");
     }
 
     // Now genrating refresh and access token and saving in cookies for sesssion
@@ -117,20 +128,20 @@ const userLogin = AsyncHandler(async (req, res) => {
     };
 
     return res.status(200)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
-    .json(
-        new ApiResponse(
-            200,
-            {
-                user: loggedInUser, accessToken, refreshToken
-            },
-            "User logged in Successfully"
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+            new ApiResponse(
+                200,
+                {
+                    user: loggedInUser, accessToken, refreshToken
+                },
+                "User logged in Successfully"
+            )
         )
-    )
 
 })
 
 export {
-    userRegistration , userLogin
+    userRegistration, userLogin
 }
