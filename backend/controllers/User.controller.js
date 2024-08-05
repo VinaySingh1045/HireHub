@@ -4,6 +4,35 @@ import { ApiResponse } from "../utlis/ApiResponse.js"
 import { User } from "../models/User.model.js";
 import uploadOnCloudniary from "../utlis/Cloudinary.js";
 
+const generateAccessAndRefreshToken = async (userId) => {
+    try {
+        const user = await User.findById(userId)
+
+        if (!user) {
+            throw new ApiError(404, "User not found");
+        }
+
+        // Add logging
+        console.log('User found:', user);
+
+        const accessToken = user.generateAccessToken();
+        console.log('Access Token generated:', accessToken);
+
+        const refreshToken = user.generateRefreshToken();
+        console.log('Refresh Token generated:', refreshToken);
+
+        user.refreshToken = refreshToken
+
+        await user.save({ validateBeforeSave: false })
+
+        return { accessToken, refreshToken }
+
+    } catch (error) {
+        console.error('Error in generateAccessAndRefreshToken:', error);
+        throw new ApiError(500, "Something went wrong while generating Refresh and Access Token ")
+    }
+}
+
 const userRegistration = AsyncHandler(async (req, res) => {
     const { fullName, email, password, phoneno, role } = req.body;
 
@@ -54,6 +83,54 @@ const userRegistration = AsyncHandler(async (req, res) => {
 
 })
 
+const userLogin = AsyncHandler(async (req, res) => {
+    const { email, password } = req.body
+
+    if (!email) {
+        throw new ApiError(400, "Email field is required");
+    }
+
+    const user = await User.findOne({ email })
+
+    if (!user) {
+        throw new ApiError(400, "Email Doesn't exists");
+    }
+
+    const isPasswordValidate = await user.isPasswordCorrect(password)
+
+    if (!isPasswordValidate) {
+        throw new ApiError(401, "Invaild User Credentials");
+    }
+
+    // Now genrating refresh and access token and saving in cookies for sesssion
+
+    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id)
+
+    // Retrieve user data without sensitive fields
+
+    const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
+
+    // Set cookies options
+    const options = {
+        httpOnly: true,
+        secure: true
+    };
+
+    return res.status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+        new ApiResponse(
+            200,
+            {
+                user: loggedInUser, accessToken, refreshToken
+            },
+            "User logged in Successfully"
+        )
+    )
+
+})
+
 export {
-    userRegistration
+    userRegistration , userLogin
 }
