@@ -108,8 +108,8 @@ const userLogin = AsyncHandler(async (req, res) => {
         throw new ApiError(401, "Invaild User Credentials");
     }
 
-     // Check if the user's role matches the provided role
-     if (user.role !== role) {
+    // Check if the user's role matches the provided role
+    if (user.role !== role) {
         throw new ApiError(403, "User does not exist with current role");
     }
 
@@ -142,6 +142,34 @@ const userLogin = AsyncHandler(async (req, res) => {
 
 })
 
+const userLogout = AsyncHandler(async (req, res) => {
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $unset:{
+                refreshToken : 1    
+            },
+        },
+        {
+            new :true
+        }
+    )
+
+    const options = {
+        httpOnly: true,
+        secure: true
+    }
+
+    return res
+    .status(200)
+    .clearCookie("accessToken" , options)
+    .clearCookie("refreshToken" , options)
+    .json(
+        new ApiResponse(200 , {} , "User Logout Successfull")
+    )
+
+})
+
 export {
-    userRegistration, userLogin
+    userRegistration, userLogin , userLogout
 }
