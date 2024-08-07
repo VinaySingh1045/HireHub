@@ -146,12 +146,12 @@ const userLogout = AsyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
         {
-            $unset:{
-                refreshToken : 1    
+            $unset: {
+                refreshToken: 1
             },
         },
         {
-            new :true
+            new: true
         }
     )
 
@@ -161,15 +161,144 @@ const userLogout = AsyncHandler(async (req, res) => {
     }
 
     return res
-    .status(200)
-    .clearCookie("accessToken" , options)
-    .clearCookie("refreshToken" , options)
-    .json(
-        new ApiResponse(200 , {} , "User Logout Successfull")
+        .status(200)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
+        .json(
+            new ApiResponse(200, {}, "User Logout Successfull")
+        )
+
+})
+
+const changeUserPassword = AsyncHandler(async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+
+    if (!(oldPassword || newPassword)) {
+        throw new ApiError(400, "Old password and new password are required")
+    }
+
+    // req.user?._id ye middle ware banaye hai waha se pata kar rahe hai user ka
+    const user = await User.findById(req.user?._id)
+
+    if (!user) {
+        throw new ApiError(400, "User Doesn't Exists")
+    }
+
+    const checkPassword = await user.isPasswordCorrect(oldPassword)
+
+    if (!checkPassword) {
+        throw new ApiError(400, "Invalid OldPassword")
+    }
+
+    user.password = newPassword
+    await user.save({ validateBeforeSave: false })
+
+    return res.status(200).json(
+        new ApiResponse(200, {}, "Password Change Successfully")
     )
 
 })
 
+const getCurrentUser = AsyncHandler(async (req, res) => {
+    return res.status(200)
+        .json(
+            new ApiResponse(200, req.user, "Current User fetch Successfully")
+        )
+})
+
+const updateUserAccount = AsyncHandler(async (req, res) => {
+    const { fullName, phoneno, bio, skills } = req.body
+
+    if (!(fullName || phoneno || bio || skills)) {
+        throw new ApiError(400, "At least one field is required to update");
+    }
+
+
+    let skillsArray;
+    if (skills) {
+        skillsArray = skills.split(",");
+    }
+
+    // Create an object with the fields that need to be (Trying new way)
+
+    const updatedFields = {};
+    if (fullName) updatedFields.fullName = fullName;
+    if (phoneno) updatedFields.phoneno = phoneno;
+    if (bio) updatedFields.bio = bio;
+    if (skills) updatedFields.skills = skillsArray;
+
+    const user = await User.findByIdAndUpdate(req.user?._id,
+        {
+            $set: updatedFields
+        },
+        {
+            new: true
+        }
+    ).select("-password")
+
+    if (!user) {
+        throw new ApiError(400, "User Doesn't Exists")
+    }
+
+    return res.status(200)
+        .json(
+            new ApiResponse(200, user, "User Updated Successfully")
+        )
+
+})
+
+const updateUserAvatar = AsyncHandler(async (req, res) => {
+    const avatarLocalPath  = req.file?.path
+
+    if (!avatarLocalPath) {
+        throw new ApiError(400, "Image File is missing")
+    }
+
+    const avatar = await uploadOnCloudniary(avatarLocalPath)
+    if (!avatar.url) {
+        throw new ApiError(400, "Error While uploading file")
+    }
+
+    const user = await User.findByIdAndUpdate(req.user?._id,
+        {
+            $set: { avatar: avatar.url }
+        },
+        { new: true }
+    ).select("-password")
+
+    return res.status(200)
+        .json(
+            new ApiResponse(200, user, "Image updated Successfull")
+        )
+
+})
+
+const updateUserResume = AsyncHandler(async (req, res) => {
+    const resumeLocalPath  = req.file?.path
+
+    if (!resumeLocalPath) {
+        throw new ApiError(400, "Image File is missing")
+    }
+
+    const resume = await uploadOnCloudniary(resumeLocalPath)
+    if (!resume.url) {
+        throw new ApiError(400, "Error While uploading file")
+    }
+
+    const user = await User.findByIdAndUpdate(req.user?._id,
+        {
+            $set: { resume: resume.url }
+        },
+        { new: true }
+    ).select("-password")
+
+    return res.status(200)
+        .json(
+            new ApiResponse(200, user, "Resume updated Successfull")
+        )
+
+})
+
 export {
-    userRegistration, userLogin , userLogout
+    userRegistration, userLogin, userLogout, changeUserPassword, getCurrentUser, updateUserAccount, updateUserAvatar, updateUserResume
 }

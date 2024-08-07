@@ -39,7 +39,8 @@ const UserSchema = new mongoose.Schema({
         }
     ],
     resume: {
-        type: String // url aayegi cloudnary ki
+        type: String, // url aayegi cloudnary ki
+        default: ""
     },
     resumeOrginalName: {
         type: String
