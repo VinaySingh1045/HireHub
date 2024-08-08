@@ -11,7 +11,9 @@ app.use(cookieParser());
 
 // writing router from here 
 import router from "../routes/User.route.js";
+import compRouter from "../routes/Company.route.js";
 
 app.use("/api/v1/users/", router)
+app.use("/api/v1/company/", compRouter)
 
 export default app 
