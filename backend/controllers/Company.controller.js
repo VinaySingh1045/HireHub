@@ -2,6 +2,7 @@ import { AsyncHandler } from "../utlis/AsyncHandler.js";
 import { ApiError } from "../utlis/ApiError.js";
 import { ApiResponse } from "../utlis/ApiResponse.js";
 import { Company } from "../models/Company.model.js";
+import uploadOnCloudniary from "../utlis/Cloudinary.js";
 
 
 const companyRegistration = AsyncHandler(async (req, res) => {
@@ -50,7 +51,7 @@ const getCompany = AsyncHandler(async (req, res) => {
 const getCompanyById = AsyncHandler(async (req, res) => {
     const companyId = req.params.id
 
-    const company = await Company.findById( companyId )
+    const company = await Company.findById(companyId)
 
     if (!company) {
         throw new ApiError(404, "Company not found")
@@ -64,4 +65,57 @@ const getCompanyById = AsyncHandler(async (req, res) => {
 
 })
 
-export { companyRegistration, getCompany , getCompanyById }
+const updateCompany = AsyncHandler(async (req, res) => {
+    const { description, websiteUrl, location, companyName } = req.body
+
+    const companyLogoPath = req.file?.path
+    const companyLogo = await uploadOnCloudniary(companyLogoPath)
+
+    if (!companyLogo) {
+        throw new ApiError(500, "Error uploading logo");
+    }
+
+    if (!(description || websiteUrl || location || companyName || companyLogoPath)) {
+        throw new ApiError(400, "At least one field is required to update")
+    }
+
+    // If a new company name is provided, check for duplicates
+    if (companyName) {
+        const existingCompany = await Company.findOne({
+            companyName,
+            _id: { $ne: req.params.id } // check not equal to id 
+        });
+
+        if (existingCompany) {
+            throw new ApiError(409, "Company with this name already exists");
+        }
+    }
+
+    const updatedFields = {};
+    if (description) updatedFields.description = description;
+    if (websiteUrl) updatedFields.websiteUrl = websiteUrl;
+    if (location) updatedFields.location = location;
+    if (companyName) updatedFields.companyName = companyName;
+    if (companyLogo) updatedFields.logo = companyLogo.url;
+
+    const company = await Company.findByIdAndUpdate(req.params.id,
+        {
+            $set: updatedFields
+        },
+        {
+            new: true
+        }
+    )
+
+    if (!company) {
+        throw new ApiError(404, "Company not found");
+    }
+
+    return res.status(200)
+        .json(
+            new ApiResponse(200, company, "Company Updated Successfully")
+        )
+
+})
+
+export { companyRegistration, getCompany, getCompanyById, updateCompany }
