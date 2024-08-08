@@ -28,5 +28,23 @@ const companyRegistration = AsyncHandler(async (req, res) => {
 
 })
 
+// ye vo company dekhga jo user ne dala hoga particularly 
+const getCompany = AsyncHandler(async (req, res) => {
 
-export { companyRegistration }
+    const userId = req.user?._id
+
+    // Use find when you want to retrieve all companies registered by a specific user.
+
+    const companies = await Company.find({ userId })
+
+    if (companies.length === 0) {
+        throw new ApiError(401, "Companies not found")
+    }
+
+    return res.status(200)
+        .json(
+            new ApiResponse(200, companies, "Company fetch Successfull")
+        )
+})
+
+export { companyRegistration , getCompany}
