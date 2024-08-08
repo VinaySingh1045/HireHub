@@ -38,13 +38,30 @@ const getCompany = AsyncHandler(async (req, res) => {
     const companies = await Company.find({ userId })
 
     if (companies.length === 0) {
-        throw new ApiError(401, "Companies not found")
+        throw new ApiError(404, "Companies not found")
     }
 
     return res.status(200)
         .json(
-            new ApiResponse(200, companies, "Company fetch Successfull")
+            new ApiResponse(200, companies, "Companies fetched Successfull")
         )
 })
 
-export { companyRegistration , getCompany}
+const getCompanyById = AsyncHandler(async (req, res) => {
+    const companyId = req.params.id
+
+    const company = await Company.findById( companyId )
+
+    if (!company) {
+        throw new ApiError(404, "Company not found")
+    }
+
+
+    return res.status(200)
+        .json(
+            new ApiResponse(200, company, "Company fetched Successfull")
+        )
+
+})
+
+export { companyRegistration, getCompany , getCompanyById }
