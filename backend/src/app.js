@@ -13,9 +13,11 @@ app.use(cookieParser());
 import router from "../routes/User.route.js";
 import compRouter from "../routes/Company.route.js";
 import jobRouter from "../routes/Job.route.js";
+import appliRouter from "../routes/Application.route.js"
 
 app.use("/api/v1/users/", router)
 app.use("/api/v1/company/", compRouter)
 app.use("/api/v1/job/", jobRouter)
+app.use("/api/v1/application/", appliRouter)
 
 export default app 
