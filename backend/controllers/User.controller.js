@@ -50,9 +50,8 @@ const userRegistration = AsyncHandler(async (req, res) => {
     // uploading the image
 
     let avatarLocalPath;
-    if (req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
-        // console.log("File uploaded: ", req.files.avatar[0].path);
-        avatarLocalPath = req.files.avatar[0].path;
+    if (req.file) {
+        avatarLocalPath = req.file.path;
     }
 
     const avatar = await uploadOnCloudniary(avatarLocalPath);
@@ -248,7 +247,7 @@ const updateUserAccount = AsyncHandler(async (req, res) => {
 })
 
 const updateUserAvatar = AsyncHandler(async (req, res) => {
-    const avatarLocalPath  = req.file?.path
+    const avatarLocalPath = req.file?.path
 
     if (!avatarLocalPath) {
         throw new ApiError(400, "Image File is missing")
@@ -274,7 +273,7 @@ const updateUserAvatar = AsyncHandler(async (req, res) => {
 })
 
 const updateUserResume = AsyncHandler(async (req, res) => {
-    const resumeLocalPath  = req.file?.path
+    const resumeLocalPath = req.file?.path
 
     if (!resumeLocalPath) {
         throw new ApiError(400, "Image File is missing")

@@ -3,6 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { LogoutIcon, UserIcon } from '@heroicons/react/outline';
 import { Button } from '../ui/button';
+import { Link } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -13,7 +14,9 @@ const Navbar = () => {
         <>
             <div>
                 <div className='flex items-center justify-between mx-auto max-w-7xl h-16'>
-                    <div className='font-bold text-2xl'>HireHub</div>
+                    <Link to={"/"}>
+                        <div className='font-bold text-2xl cursor-pointer'>HireHub</div>
+                    </Link>
                     <div className='flex items-center gap-5'>
                         <ul className='flex gap-5 items-center font-bold'>
                             <li>Home</li>
@@ -24,8 +27,12 @@ const Navbar = () => {
                         {
                             !user ? (
                                 <div className='flex gap-2'>
-                                    <Button className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 '>Login</Button>
-                                    <Button className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 '>Signup</Button>
+                                    <Link to={"/login"}>
+                                        <Button className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 '>Login</Button>
+                                    </Link>
+                                    <Link to={"/signup"}>
+                                        <Button className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 '>Signup</Button>
+                                    </Link>
                                 </div>
                             ) : (
 
