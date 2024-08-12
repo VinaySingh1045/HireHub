@@ -9,13 +9,16 @@ import Login from './components/auth/Login.jsx'
 import Signup from './components/auth/Signup.jsx'
 import { Toaster } from './components/ui/sonner.jsx'
 
-
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
 
     children: [
+      {
+        path:"",
+        element:<Home/>
+      },
       {
         path: "/login",
         element: <Login />

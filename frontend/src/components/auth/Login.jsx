@@ -1,5 +1,5 @@
 import { store } from '@/app/store'
-import { setLoading } from '@/features/authSlice'
+import { setLoading, setUser } from '@/features/authSlice'
 import { USER_API_END_POINT } from '@/utlis/constants'
 import axios from 'axios'
 import React, { useState } from 'react'
@@ -12,6 +12,8 @@ const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { loading } = useSelector(store => store.auth)
+    // const { user } = useSelector(store => store.auth)
+    // const authUser = useSelector((state)=>state.auth.user)
     const [userData, setuserData] = useState({
         email: "",
         password: "",
@@ -34,6 +36,7 @@ const Login = () => {
                 withCredentials: true
             })
             if (res.data.success) {
+                dispatch(setUser(res.data.loggedInUser))
                 navigate("/")
                 toast.success(res.data.message)
             }

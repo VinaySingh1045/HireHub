@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+.bg-hero {
+  background-image: url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0zMDktYWV3LTAxM18xXzEuanBn.jpg');
+}
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
