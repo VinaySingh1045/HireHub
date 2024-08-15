@@ -35,8 +35,12 @@ const Login = () => {
                 },
                 withCredentials: true
             })
+
+            console.log("Login Response:", res.data.data.user); 
+
             if (res.data.success) {
-                dispatch(setUser(res.data.loggedInUser))
+                const userInfo = res.data.data.user
+                dispatch(setUser(userInfo))
                 navigate("/")
                 toast.success(res.data.message)
             }

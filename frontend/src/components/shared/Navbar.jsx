@@ -23,7 +23,7 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            const res = await axios.post(`${USER_API_END_POINT}/logout`,
+            const res = await axios.post(`${USER_API_END_POINT}/logout`, {} ,
                 {
                     withCredentials: true
                 }
@@ -35,7 +35,7 @@ const Navbar = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error(error.response.data.message);
+            toast.error((error.response?.data?.message || "Logout failed"));
         }
     }
 
