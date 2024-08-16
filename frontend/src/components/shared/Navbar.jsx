@@ -41,7 +41,7 @@ const Navbar = () => {
 
     return (
         <>
-            <div className='bg-transparent'>
+            <div className='bg-transparent bg-[#dcdcdc]'>
                 <div className='flex items-center justify-between mx-auto max-w-7xl h-16  '>
                     <Link to={"/"}>
                         <div className='font-bold text-2xl cursor-pointer'>👜 HireHub</div>
@@ -100,7 +100,7 @@ const Navbar = () => {
                                         <div className='flex items-center'>
                                             <UserIcon className="h-6 w-6 text-gray-500 mt-4 mx-2" />
                                             <p className='mt-4'>
-                                                <Button variant="link" className='text-[19px]'>Your Profile</Button>
+                                                <Button variant="link" className='text-[19px]'><Link to={"/profile"} >Your Profile</Link></Button>
                                             </p>
                                         </div>
                                         <div className='flex items-center'>

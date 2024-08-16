@@ -8,6 +8,7 @@ import Home from './components/Home.jsx'
 import Login from './components/auth/Login.jsx'
 import Signup from './components/auth/Signup.jsx'
 import { Toaster } from './components/ui/sonner.jsx'
+import Profile from './components/userProfile/Profile.jsx'
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />
-      }
+      },
+      {
+        path: "/profile",
+        element: <Profile />
+      },
     ]
 
   },
