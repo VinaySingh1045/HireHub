@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+import { Button } from '../ui/button'
 
 const Login = () => {
 
@@ -71,6 +72,7 @@ const Login = () => {
 
     return (
         <>
+       
             <div className="flex justify-center items-center min-h-[90vh] bg-gray-100">
                 <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md my-10">
                     <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
@@ -121,15 +123,15 @@ const Login = () => {
                         </div>
 
                         {
-                            loading ? <div className="mb-6 flex items-center"> <button className="bg-indigo-600 text-white font-bold py-2 px-4 rounded w-full hover:bg-indigo-700 focus:outline-none focus:shadow-outline">
-                                Please wait </button>
+                            loading ? <div className="mb-6 flex items-center"> <Button className="bg-[#159788] text-white font-bold py-2 px-4 rounded w-full">
+                                Please wait </Button>
                             </div> : <div className="mb-6">
-                                <button
+                                <Button
                                     type="submit"
-                                    className="bg-indigo-600 text-white font-bold py-2 px-4 rounded w-full hover:bg-indigo-700 focus:outline-none focus:shadow-outline"
+                                    className="bg-[#159788] text-white font-bold py-2 px-4 rounded w-full"
                                 >
                                     Login
-                                </button>
+                                </Button>
                             </div>
                         }
 

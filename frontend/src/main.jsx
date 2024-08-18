@@ -9,6 +9,9 @@ import Login from './components/auth/Login.jsx'
 import Signup from './components/auth/Signup.jsx'
 import { Toaster } from './components/ui/sonner.jsx'
 import Profile from './components/userProfile/Profile.jsx'
+import JobsCard from './components/jobs/JobsCard.jsx'
+import Jobs from './components/jobs/Jobs.jsx'
+import Browse from './components/Browse.jsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +34,14 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />
+      },
+      {
+        path: "/jobs",
+        element: <Jobs/>
+      },
+      {
+        path: "/browse",
+        element: <Browse/>
       },
     ]
 

@@ -41,7 +41,7 @@ const Navbar = () => {
 
     return (
         <>
-            <div className='bg-transparent bg-[#dcdcdc]'>
+            <div className='bg-[#dcdcdc] sticky top-0 z-50 shadow-lg'>
                 <div className='flex items-center justify-between mx-auto max-w-7xl h-16  '>
                     <Link to={"/"}>
                         <div className='font-bold text-2xl cursor-pointer'>👜 HireHub</div>
@@ -60,12 +60,12 @@ const Navbar = () => {
                             block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                                 }
                             >Jobs</NavLink></li>
-                            <li><NavLink to={"/browser"}
+                            <li><NavLink to={"/browse"}
                                 className={({ isActive }) =>
                                     `${isActive ? "text-orange-700" : "text-gray-700"}
                             block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
                                 }
-                            >Browser</NavLink></li>
+                            >Browse</NavLink></li>
 
                         </ul>
 
@@ -73,10 +73,10 @@ const Navbar = () => {
                             !authUser ? (
                                 <div className='flex gap-2'>
                                     <Link to={"/login"}>
-                                        <Button className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 '>Login</Button>
+                                        <Button className='bg-[#159788]'>Login</Button>
                                     </Link>
                                     <Link to={"/signup"}>
-                                        <Button className='text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 '>Signup</Button>
+                                        <Button className='bg-[#159788]'>Signup</Button>
                                     </Link>
                                 </div>
                             ) : (

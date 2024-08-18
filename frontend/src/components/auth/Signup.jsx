@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+import { Button } from '../ui/button'
 
 const Signup = () => {
 
@@ -189,19 +190,18 @@ const Signup = () => {
 
                         {
                             loading ? (<div className="mb-6">
-                                <button
-                                    className="bg-indigo-600 text-white font-bold py-2 px-4 rounded w-full hover:bg-indigo-700 focus:outline-none focus:shadow-outline"
+                                <Button
+                                    className="bg-[#159788] text-white font-bold py-2 px-4 rounded w-full"
                                 >
                                     Please wait
-                                </button>
+                                </Button>
                             </div>) : (<div className="mb-6">
-                                <button
-
+                                <Button
                                     type="submit"
-                                    className="bg-indigo-600 text-white font-bold py-2 px-4 rounded w-full hover:bg-indigo-700 focus:outline-none focus:shadow-outline"
+                                    className="bg-[#159788] text-white font-bold py-2 px-4 rounded w-full"
                                 >
                                     Signup
-                                </button>
+                                </Button>
                             </div>)
                         }
                         
