@@ -252,7 +252,7 @@ const updateUserAccount = AsyncHandler(async (req, res) => {
         ).select("-password")
     
         if (!user) {
-            throw new ApiError(400, "User Doesn't Exists")
+            throw new ApiError(400, "User Doesn't Exist")
         }
     
         return res.status(200)

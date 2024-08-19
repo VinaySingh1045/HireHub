@@ -69,7 +69,7 @@ const Profile = () => {
           <h3 className="text-gray-800 text-lg font-semibold">Skills</h3>
           <div className="flex flex-wrap mt-2 gap-2">
             <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded dark:bg-blue-200 dark:text-blue-800">
-              Html
+              {user.skills}
             </span>
             <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded dark:bg-blue-200 dark:text-blue-800">
               Css

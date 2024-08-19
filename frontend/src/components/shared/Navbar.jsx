@@ -94,7 +94,7 @@ const Navbar = () => {
                                             </Avatar>
                                             <div>
                                                 <h2>Vinay Singh</h2>
-                                                <p className='text-sm text-muted-foreground '>Bio: Lorem ipsum dolor sit.</p>
+                                                <p className='text-sm text-muted-foreground '>Bio: {authUser.bio}.</p>
                                             </div>
                                         </div>
                                         <div className='flex items-center'>

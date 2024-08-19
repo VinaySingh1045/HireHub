@@ -22,13 +22,13 @@ const UpdateProfile = ({ open, setOpen }) => {
         fullName: user?.fullName || "",
         bio: user?.bio || "",
         phoneno: user?.phoneno || "",
-        skills: user?.skills?.join(', ') || "",
+        skills: user?.profile?.skills?.map(skill => skill) || "",
         // avatar: user?.avatar || "",
     });
 
     const handleChange = (e) => {
         // if (e.target.name === "avatar") {
-        //     setInput({ ...input, [e.target.name]: e.target.files[0] })
+        //     setInput({ ...inp    ut, [e.target.name]: e.target.files[0] })
         // } else {
             setInput({ ...input, [e.target.name]: e.target.value })
         // }
@@ -39,24 +39,19 @@ const UpdateProfile = ({ open, setOpen }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append("fullName", input.fullName);
-        formData.append("bio", input.bio);
-        formData.append("phoneno", input.phoneno);
-        formData.append("skills", input.skills);
-
-        // if (input.avatar) {
-        //     formData.append("avatar", input.avatar);
-        // }
-
+       const userData = {
+        fullName: input.fullName,
+        bio: input.bio,
+        phoneno: input.phoneno,
+        // skills: input.skills
+        skills: input.skills
+       }
+        
         setLoading(true)
 
         try {
-            const res = await axios.put(`${USER_API_END_POINT}/updateDetails`, formData,
+            const res = await axios.put(`${USER_API_END_POINT}/updateDetails`, userData,
                 {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    },
                     withCredentials: true
                 }
             )
