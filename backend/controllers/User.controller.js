@@ -211,43 +211,57 @@ const getCurrentUser = AsyncHandler(async (req, res) => {
 })
 
 const updateUserAccount = AsyncHandler(async (req, res) => {
+
+    console.log('Request Body:', req.body);
+
+
     const { fullName, phoneno, bio, skills } = req.body
 
-    if (!(fullName || phoneno || bio || skills)) {
-        throw new ApiError(400, "At least one field is required to update");
-    }
+    console.log(fullName);
+    console.log(bio);
+    console.log(phoneno);
+    console.log(skills);
+
+    // if (!fullName && !phoneno && !bio && !skills) {
+    //     throw new ApiError(400, "At least one field is required to update");
+    // }
 
 
-    let skillsArray;
-    if (skills) {
-        skillsArray = skills.split(",");
-    }
-
-    // Create an object with the fields that need to be (Trying new way)
-
-    const updatedFields = {};
-    if (fullName) updatedFields.fullName = fullName;
-    if (phoneno) updatedFields.phoneno = phoneno;
-    if (bio) updatedFields.bio = bio;
-    if (skills) updatedFields.skills = skillsArray;
-
-    const user = await User.findByIdAndUpdate(req.user?._id,
-        {
-            $set: updatedFields
-        },
-        {
-            new: true
+    try {
+        let skillsArray;
+        if (skills) {
+            skillsArray = skills.split(",");
         }
-    ).select("-password")
+    
+        // Create an object with the fields that need to be (Trying new way)
+    
+        const updatedFields = {};
+        if (fullName) updatedFields.fullName = fullName;
+        if (phoneno) updatedFields.phoneno = phoneno;
+        if (bio) updatedFields.bio = bio;
+        if (skills) updatedFields.skills = skillsArray;
 
-    if (!user) {
-        throw new ApiError(400, "User Doesn't Exists")
+    
+        const user = await User.findByIdAndUpdate(req.user?._id,
+            {
+                $set: updatedFields
+            },
+            {
+                new: true
+            }
+        ).select("-password")
+    
+        if (!user) {
+            throw new ApiError(400, "User Doesn't Exists")
+        }
+    
+        return res.status(200)
+            .json(
+                new ApiResponse(200, user, "User Updated Successfully")
+            )
+    } catch (error) {
+        console.log(error);
     }
-
-    return res.status(200)
-        .json(
-            new ApiResponse(200, user, "User Updated Successfully")
-        )
 
 })
 

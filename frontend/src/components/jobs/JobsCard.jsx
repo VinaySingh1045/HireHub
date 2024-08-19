@@ -4,8 +4,12 @@ import { Avatar } from '@radix-ui/react-avatar';
 import { Button } from '../ui/button';
 import { AvatarImage } from '../ui/avatar';
 import { Bookmark } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const JobsCard = () => {
+    const navigate = useNavigate();
+    const jobid = "jndajknjnldsnk";
+    
     const daysAgoFunction = (mongodbTime) => {
         const createdAt = new Date(mongodbTime);
         const currentTime = new Date();
@@ -45,7 +49,7 @@ const JobsCard = () => {
                             <Badge className='text-[#7209b7] font-bold' variant="ghost">500000 LPA</Badge>
                         </div>
                         <div className='flex items-center gap-4 mt-4'>
-                            <Button variant="outline">Details</Button>
+                            <Button onClick={()=>{navigate(`/jobs/description/${jobid}`)}} variant="outline">Details</Button>
                             <Button className="bg-[#159788] text-white">Save For Later</Button>
                         </div>
                     </div>
