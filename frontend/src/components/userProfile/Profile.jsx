@@ -16,7 +16,7 @@ const Profile = () => {
       <div className="max-w-7xl mx-auto my-7 bg-white shadow-xl rounded-lg overflow-hidden relative">
         {/* Pencil Icon for Edit */}
         <div className="absolute top-4 right-4">
-          <button onClick={()=>{setOpen(true)}} className="text-gray-600 hover:text-gray-800">
+          <button onClick={() => { setOpen(true) }} className="text-gray-600 hover:text-gray-800">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -37,8 +37,8 @@ const Profile = () => {
         <div className="flex items-center p-6">
           <img
             className="h-20 w-20 rounded-full object-cover shadow-md"
-            src="https://via.placeholder.com/150" // Replace with your image URL
-            alt="Profile"
+            src={user.avatar} // Replace with your image URL
+            alt="https://via.placeholder.com/150"
           />
           <div className="ml-7">
             <h2 className="text-2xl font-bold text-gray-800">{user.fullName}</h2>
@@ -68,20 +68,17 @@ const Profile = () => {
         <div className="px-6 py-4 border-b border-gray-200">
           <h3 className="text-gray-800 text-lg font-semibold">Skills</h3>
           <div className="flex flex-wrap mt-2 gap-2">
-            <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded dark:bg-blue-200 dark:text-blue-800">
-              {user.skills}
-            </span>
-            <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded dark:bg-blue-200 dark:text-blue-800">
-              Css
-            </span>
-            <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded dark:bg-blue-200 dark:text-blue-800">
-              Javascript
-            </span>
-            <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded dark:bg-blue-200 dark:text-blue-800">
-              Reactjs
-            </span>
+            {user.skills.map((item, index) => (
+              <span
+                key={index}
+                className="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded"
+              >
+                {item}
+              </span>
+            ))}
           </div>
         </div>
+
 
         <div className="px-6 py-4">
           <h3 className="text-gray-800 text-lg font-semibold">Resume</h3>
@@ -104,9 +101,9 @@ const Profile = () => {
         <AppliedJobsTable />
       </div>
 
-    <div>
-      <UpdateProfile open={open} setOpen ={setOpen} />
-    </div>
+      <div>
+        <UpdateProfile open={open} setOpen={setOpen} />
+      </div>
 
     </>
   );

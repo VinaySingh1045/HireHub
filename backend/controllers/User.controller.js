@@ -212,15 +212,15 @@ const getCurrentUser = AsyncHandler(async (req, res) => {
 
 const updateUserAccount = AsyncHandler(async (req, res) => {
 
-    console.log('Request Body:', req.body);
+    // console.log('Request Body:', req.body);
 
 
     const { fullName, phoneno, bio, skills } = req.body
 
-    console.log(fullName);
-    console.log(bio);
-    console.log(phoneno);
-    console.log(skills);
+    // console.log(fullName);
+    // console.log(bio);
+    // console.log(phoneno);
+    // console.log(skills);
 
     // if (!fullName && !phoneno && !bio && !skills) {
     //     throw new ApiError(400, "At least one field is required to update");

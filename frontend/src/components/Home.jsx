@@ -3,8 +3,11 @@ import JobsCard from './jobs/JobsCard'
 import { Link } from 'react-router-dom'
 import { Button } from './ui/button'
 import { ArrowRight } from 'lucide-react'
+import useGetAllJobs from '@/hooks/useGetAllJobs'
+import LatestJobCard from './jobs/LatestJobCard'
 
 const Home = () => {
+  useGetAllJobs();
   return (
     <>
       <div className='bg-[#f3f4f6]'>
@@ -75,7 +78,9 @@ const Home = () => {
           <div className='font-bold text-5xl my-7 mx-auto text-center '>
             Latest Jobs Available
           </div>
-          <JobsCard />
+          <div className='mx-7'>
+            <LatestJobCard />
+          </div>
         </div>
         <div className='text-center mx-auto'>
           <Link to={"/jobs"}>
@@ -104,7 +109,7 @@ const Home = () => {
               </p>
               <div className="mt-8 flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start">
                 <Link to={"/browse"}>
-                <Button className="py-8 rounded-lg bg-[#159788]"><span className='flex items-center gap-3'>Search Jobs <ArrowRight /></span></Button>
+                  <Button className="py-8 rounded-lg bg-[#159788]"><span className='flex items-center gap-3'>Search Jobs <ArrowRight /></span></Button>
                 </Link>
               </div>
             </div>
