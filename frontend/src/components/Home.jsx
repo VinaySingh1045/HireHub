@@ -76,7 +76,8 @@ const Home = () => {
         </section>
         <div>
           <div className='font-bold text-5xl my-7 mx-auto text-center '>
-            Latest Jobs Available
+            Latest Jobs <span className='text-[#159788]'>Available</span>
+            
           </div>
           <div className='mx-7'>
             <LatestJobCard />

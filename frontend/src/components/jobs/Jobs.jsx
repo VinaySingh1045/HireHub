@@ -16,7 +16,7 @@ const Jobs = () => {
         </div>
         <div className="w-full lg:w-3/4">
           {
-            allJobs.length === 0 ? <span>No Jobs Avaialbe</span> :
+            allJobs.length === 0 ? <span className='text-xl flex items-center justify-center' >No Jobs Avaialbe</span> :
               allJobs.map((job) => (
                 <JobsCard key={job?._id} job={job} />
               ))

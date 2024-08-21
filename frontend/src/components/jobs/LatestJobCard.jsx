@@ -10,7 +10,7 @@ const LatestJobCard = () => {
         <>
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {
-                    allJobs.length === 0 ? <span>No Jobs Available</span> :
+                    allJobs.length === 0 ? <span className='text-xl text-center mx-auto '>No Jobs Available</span> :
                         allJobs.slice(0, 6).map((job) => (
                             <JobsCard key={job._id} job={job} />
                         ))

@@ -84,13 +84,14 @@ const Profile = () => {
           <h3 className="text-gray-800 text-lg font-semibold">Resume</h3>
           <ul className="mt-2">
             <li>
-              <a
-                target="_blank"
-                href={user.resume}
-                className="text-blue-500 hover:underline"
-              >
-                {user.resume ? user.resume : "No Resume"}
-              </a>
+              {user.resume ? (
+                <a
+                  target="_blank"
+                  href={user.resume}
+                  className="text-blue-500 hover:underline"
+                >
+                </a>
+              ) : <span className='text-black'>Resume Not Submitted</span>}
             </li>
           </ul>
         </div>

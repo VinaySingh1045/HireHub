@@ -23,7 +23,7 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            const res = await axios.post(`${USER_API_END_POINT}/logout`, {} ,
+            const res = await axios.post(`${USER_API_END_POINT}/logout`, {},
                 {
                     withCredentials: true
                 }
@@ -44,7 +44,7 @@ const Navbar = () => {
             <div className='bg-[#dcdcdc] sticky top-0 z-50 shadow-lg'>
                 <div className='flex items-center justify-between mx-auto max-w-7xl h-16  '>
                     <Link to={"/"}>
-                        <div className='font-bold text-2xl cursor-pointer'>👜 HireHub</div>
+                        <div className='font-bold text-3xl cursor-pointer'> <span className='text-4xl'>👜</span> Hire<span className='text-[#159788]'>Hub</span></div>
                     </Link>
                     <div className='flex items-center gap-5'>
                         <ul className='flex gap-5 items-center font-bold'>

@@ -27,11 +27,9 @@ const UpdateProfile = ({ open, setOpen }) => {
     });
 
     const handleChange = (e) => {
-        // if (e.target.name === "avatar") {
-        //     setInput({ ...inp    ut, [e.target.name]: e.target.files[0] })
-        // } else {
-            setInput({ ...input, [e.target.name]: e.target.value })
-        // }
+
+        setInput({ ...input, [e.target.name]: e.target.value })
+
     }
     // console.log("User data:", user);
 
@@ -39,14 +37,13 @@ const UpdateProfile = ({ open, setOpen }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-       const userData = {
-        fullName: input.fullName,
-        bio: input.bio,
-        phoneno: input.phoneno,
-        // skills: input.skills
-        skills: input.skills
-       }
-        
+        const userData = {
+            fullName: input.fullName,
+            bio: input.bio,
+            phoneno: input.phoneno,
+            skills: input.skills
+        }
+
         setLoading(true)
 
         try {
@@ -143,7 +140,7 @@ const UpdateProfile = ({ open, setOpen }) => {
                                 placeholder="Enter your skills"
                             />
                         </div>
-{/* 
+                        {/* 
                         <div className="mb-6">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="avatar">
                                 Profile Picture

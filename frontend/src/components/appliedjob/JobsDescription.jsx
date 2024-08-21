@@ -4,8 +4,9 @@ import { Button } from '../ui/button';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { JOB_API_END_POINT } from '@/utlis/constants';
+import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from '@/utlis/constants';
 import { setSingleJob } from '@/features/jobSlice';
+import { toast } from 'sonner';
 
 const JobsDescription = () => {
     const [loading, setLoading] = useState(true);
@@ -14,7 +15,10 @@ const JobsDescription = () => {
     const { singleJob } = useSelector((state) => state.job);
     const { user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    const isApplied = singleJob?.application?.some(application => application.applicant === user?._id) || false;
+    const isIntiallyApplied = singleJob?.application?.some(application => application.applicant === user?._id) || false;
+
+    const [isApplied, setIsApplied] = useState(isIntiallyApplied)
+
 
     useEffect(() => {
         const fetchSingleJob = async () => {
@@ -22,8 +26,13 @@ const JobsDescription = () => {
                 const res = await axios.get(`${JOB_API_END_POINT}/getJobById/${jobId}`, {
                     withCredentials: true,
                 });
+                // console.log(res.data);
                 if (res.data.success) {
                     dispatch(setSingleJob(res.data.data));
+
+                    const hasApplied = res.data.data.application?.some(application => application.applicant === user?._id);
+                    // console.log("User has applied: ", hasApplied); // Debugging log
+                    setIsApplied(hasApplied);
                 }
             } catch (error) {
                 console.log(error);
@@ -33,6 +42,55 @@ const JobsDescription = () => {
         };
         fetchSingleJob();
     }, [jobId, dispatch, user?._id]);
+
+
+    const handleApply = async () => {
+        try {
+            const res = await axios.get(`${APPLICATION_API_END_POINT}/applyJob/${jobId}`, {
+                withCredentials: true,
+            });
+            // console.log(res.data.data);
+            if (res.data.success) {
+                // ye true kar rahe hai taki Already applied dekhe Button pe
+                setIsApplied(true);
+
+                // Applicant hai real time pe update ho is liye aisa likha hai
+                const updatedSingleJob = { ...singleJob, application: [...singleJob.application, { applicant: user?._id }] }
+                dispatch(setSingleJob(updatedSingleJob));
+
+                toast(res.data.message)
+            }
+        } catch (error) {
+            console.log(error);
+            if (error.response && error.response.status === 400) {
+                toast.error("You have already applied for this job.");
+            }
+        }
+    }
+
+    // useEffect(() => {
+    //     const fetchSingleJob = async () => {
+    //         try {
+    //             const res = await axios.get(`${JOB_API_END_POINT}/getJobById/${jobId}`, {
+    //                 withCredentials: true,
+    //             });
+    //             if (res.data.success) {
+    //                 dispatch(setSingleJob(res.data.data));
+    //                 console.log(res.data.data);
+    //                 // Ensure the state is updated or a sync with fetched data
+    //                 // setIsApplied(res.data.data.application?.some(application => application.createdBy === user?._id));
+
+    //                 setIsApplied(res.data.data.application?.some(application => application === user?._id));
+
+    //             }
+    //         } catch (error) {
+    //             console.log(error);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+    //     fetchSingleJob();
+    // }, [jobId, dispatch, user?._id]);
 
     if (loading) {
         return <div className="flex justify-center items-center h-screen">Loading...</div>;
@@ -59,6 +117,7 @@ const JobsDescription = () => {
                                 </div>
                             </div>
                             <Button
+                                onClick={isApplied ? null : handleApply}
                                 disabled={isApplied}
                                 className={`px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-all duration-300 ${isApplied ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#159788] hover:bg-[#0f172ae6]'
                                     }`}
