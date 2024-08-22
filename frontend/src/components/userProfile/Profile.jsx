@@ -5,11 +5,16 @@ import { useSelector } from 'react-redux';
 import AppliedJobsTable from '../appliedjob/AppliedJobsTable';
 import { useNavigate } from 'react-router-dom';
 import UpdateProfile from './UpdateProfile';
+import UpdateResume from './UpdateResume';
+import UpdateAvatar from './UpdateAvatar';
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [openResume, setopenResume] = useState(false);
+  const [openAvatar, setopenAvatar] = useState(false);
+  console.log(user)
 
   return (
     <>
@@ -35,9 +40,9 @@ const Profile = () => {
         </div>
 
         <div className="flex items-center p-6">
-          <img
-            className="h-20 w-20 rounded-full object-cover shadow-md"
-            src={user.avatar} // Replace with your image URL
+          <img onClick={() => setopenAvatar(true)}
+            className="h-20 w-20 rounded-full object-cover shadow-md cursor-pointer"
+            src={user.avatar} 
             alt="https://via.placeholder.com/150"
           />
           <div className="ml-7">
@@ -79,19 +84,39 @@ const Profile = () => {
           </div>
         </div>
 
-
         <div className="px-6 py-4">
-          <h3 className="text-gray-800 text-lg font-semibold">Resume</h3>
+          <div className='flex items-center justify-between'>
+            <h3 className="text-gray-800 text-lg font-semibold">Resume</h3>
+            <button onClick={() => { setopenResume(true) }} className="text-gray-600 hover:text-gray-800">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M16.862 4.487l2.651 2.65-12.72 12.72-4.13.457.457-4.13L16.862 4.487z"
+                />
+              </svg>
+            </button>
+          </div>
           <ul className="mt-2">
             <li>
-              {user.resume ? (
-                <a
-                  target="_blank"
-                  href={user.resume}
-                  className="text-blue-500 hover:underline"
-                >
-                </a>
-              ) : <span className='text-black'>Resume Not Submitted</span>}
+              {
+                user.resume ? (
+                  <a
+                    target="_blank"
+                    href={user.resume}
+                    className="text-blue-500 hover:underline"
+                  >
+                    {user.resume}
+                  </a>
+                ) : <span className='text-black'>Resume Not Submitted</span>
+              }
             </li>
           </ul>
         </div>
@@ -106,6 +131,13 @@ const Profile = () => {
         <UpdateProfile open={open} setOpen={setOpen} />
       </div>
 
+      <div>
+        <UpdateResume open={openResume} setOpen={setopenResume} />
+      </div>
+      
+      <div>
+        <UpdateAvatar open={openAvatar} setOpen={setopenAvatar} />
+      </div>
     </>
   );
 };

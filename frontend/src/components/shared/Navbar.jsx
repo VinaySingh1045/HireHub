@@ -9,6 +9,7 @@ import axios from 'axios';
 import { USER_API_END_POINT } from '@/utlis/constants';
 import { setUser } from '@/features/authSlice';
 import { toast } from 'sonner';
+// import { persistor } from '@/app/store';
 
 
 const Navbar = () => {
@@ -30,6 +31,7 @@ const Navbar = () => {
             )
             if (res.data.success) {
                 dispatch(setUser(null))
+                // persistor.purge();
                 navigate("/")
                 toast.success(res.data.message);
             }
@@ -48,25 +50,45 @@ const Navbar = () => {
                     </Link>
                     <div className='flex items-center gap-5'>
                         <ul className='flex gap-5 items-center font-bold'>
-                            <li><NavLink to={"/"}
-                                className={({ isActive }) =>
-                                    `${isActive ? "text-orange-700" : "text-gray-700"}
-                            block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
-                                }
-                            >Home</NavLink></li>
-                            <li><NavLink to={"/jobs"}
-                                className={({ isActive }) =>
-                                    `${isActive ? "text-orange-700" : "text-gray-700"}
-                            block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
-                                }
-                            >Jobs</NavLink></li>
-                            <li><NavLink to={"/browse"}
-                                className={({ isActive }) =>
-                                    `${isActive ? "text-orange-700" : "text-gray-700"}
-                            block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
-                                }
-                            >Browse</NavLink></li>
 
+                            {
+                                authUser && authUser?.role === "employer" ?
+                                    <>
+                                        <li><NavLink to={"/admin/companines"}
+                                            className={({ isActive }) =>
+                                                `${isActive ? "text-orange-700" : "text-gray-700"}
+                            block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                            }
+                                        >Companies</NavLink></li>
+                                        <li><NavLink to={"/jobs"}
+                                            className={({ isActive }) =>
+                                                `${isActive ? "text-orange-700" : "text-gray-700"}
+                            block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                            }
+                                        >Jobs</NavLink></li>
+                                    </>
+                                    :
+                                    <>
+                                        <li><NavLink to={"/"}
+                                            className={({ isActive }) =>
+                                                `${isActive ? "text-orange-700" : "text-gray-700"}
+                            block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                            }
+                                        >Home</NavLink></li>
+                                        <li><NavLink to={"/jobs"}
+                                            className={({ isActive }) =>
+                                                `${isActive ? "text-orange-700" : "text-gray-700"}
+                            block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                            }
+                                        >Jobs</NavLink></li>
+                                        <li><NavLink to={"/browse"}
+                                            className={({ isActive }) =>
+                                                `${isActive ? "text-orange-700" : "text-gray-700"}
+                            block py-2 pr-4 pl-3 duration-200 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                            }
+                                        >Browse</NavLink></li>
+                                    </>
+                            }
                         </ul>
 
                         {
@@ -93,16 +115,22 @@ const Navbar = () => {
                                                 <AvatarImage src={authUser.avatar} />
                                             </Avatar>
                                             <div>
-                                                <h2>Vinay Singh</h2>
+                                                <h2>{authUser.fullName}</h2>
                                                 <p className='text-sm text-muted-foreground '>Bio: {authUser.bio}.</p>
                                             </div>
                                         </div>
-                                        <div className='flex items-center'>
-                                            <UserIcon className="h-6 w-6 text-gray-500 mt-4 mx-2" />
-                                            <p className='mt-4'>
-                                                <Button variant="link" className='text-[19px]'><Link to={"/profile"} >Your Profile</Link></Button>
-                                            </p>
-                                        </div>
+
+                                        {
+                                            authUser && authUser.role === "jobSeeker" ?
+
+                                                <div className='flex items-center'>
+                                                    <UserIcon className="h-6 w-6 text-gray-500 mt-4 mx-2" />
+                                                    <p className='mt-4'>
+                                                        <Button variant="link" className='text-[19px]'><Link to={"/profile"} >Your Profile</Link></Button>
+                                                    </p>
+                                                </div>
+                                                : null
+                                        }
                                         <div className='flex items-center'>
                                             <LogoutIcon className="h-6 w-6 text-gray-500 mt-4 mx-2" />
                                             <p className='mt-4'>

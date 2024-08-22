@@ -8,7 +8,11 @@ const applyJob = AsyncHandler(async (req, res) => {
     const jobId = req.params.id
     const userId = req.user?._id
 
-    console.log(jobId, " UserId: " , userId);
+    // console.log(jobId, " UserId: " , userId);
+
+    if(!userId) {
+        throw new ApiError(400, "User is not logged in")
+    }
 
     if (!jobId) {
         throw new ApiError(400, "job is required")

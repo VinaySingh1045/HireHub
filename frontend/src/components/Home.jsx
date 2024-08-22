@@ -1,19 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import JobsCard from './jobs/JobsCard'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from './ui/button'
 import { ArrowRight } from 'lucide-react'
 import useGetAllJobs from '@/hooks/useGetAllJobs'
 import LatestJobCard from './jobs/LatestJobCard'
+import { useSelector } from 'react-redux'
 
 const Home = () => {
+
+  // const { user } = useSelector(state => state.auth)
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if(user.role === 'employer') {
+  //     navigate("/admin/companines")
+  //   }
+  //   else if(user.role === 'jobSeeker'){
+  //     navigate("/")
+  //   }
+  // }, [])
+
+
   useGetAllJobs();
   return (
     <>
-      <div className='bg-[#f3f4f6]'>
-        <section className="relative bg-hero bg-cover bg-center h-screen flex flex-col justify-center items-center text-center text-white">
+      <div className=' bg-[#f3f4f6]'>
+        <section className=" relative bg-hero bg-cover bg-center h-screen flex flex-col justify-center items-center text-center text-white">
           {/* Dim overlay */}
-          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="absolute inset-0 bg-black opacity-[0.7]"></div>
 
           <div className="relative z-10">
             <h1 className="text-5xl font-bold mb-4">Find Your <span className='text-[#159788]'> Dream Job </span> Today!</h1>
@@ -77,7 +92,7 @@ const Home = () => {
         <div>
           <div className='font-bold text-5xl my-7 mx-auto text-center '>
             Latest Jobs <span className='text-[#159788]'>Available</span>
-            
+
           </div>
           <div className='mx-7'>
             <LatestJobCard />

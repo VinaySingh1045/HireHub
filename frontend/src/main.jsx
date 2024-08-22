@@ -13,6 +13,7 @@ import JobsCard from './components/jobs/JobsCard.jsx'
 import Jobs from './components/jobs/Jobs.jsx'
 import Browse from './components/Browse.jsx'
 import JobsDescription from './components/appliedjob/JobsDescription.jsx'
+import Companies from './components/compaines/Companies.jsx'
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,13 @@ const router = createBrowserRouter([
       {
         path: "/browse",
         element: <Browse/>
+      },
+
+      // Admin interface
+
+      {
+        path: "/admin/companines",
+        element: <Companies/>
       },
     ]
 

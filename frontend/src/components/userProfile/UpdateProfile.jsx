@@ -18,11 +18,15 @@ const UpdateProfile = ({ open, setOpen }) => {
     const { user } = useSelector((state) => state.auth);
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch();
+
+    console.log(user)
+
     const [input, setInput] = useState({
         fullName: user?.fullName || "",
         bio: user?.bio || "",
         phoneno: user?.phoneno || "",
-        skills: user?.profile?.skills?.map(skill => skill) || "",
+        // skills: user?.skills?.map(skill => skill) || "",
+        skills: Array.isArray(user?.skills) ? user.skills.join(", ") : user?.skills || "",
         // avatar: user?.avatar || "",
     });
 
@@ -41,8 +45,12 @@ const UpdateProfile = ({ open, setOpen }) => {
             fullName: input.fullName,
             bio: input.bio,
             phoneno: input.phoneno,
-            skills: input.skills
+            // skills: input.skills
+            skills: typeof input.skills === "string" ? input.skills : input.skills.toString(),
         }
+        // console.log(typeof input.skills); // Should output 'string'
+        // console.log(input.skills); // Should output the string value
+
 
         setLoading(true)
 

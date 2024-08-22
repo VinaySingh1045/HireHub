@@ -217,6 +217,10 @@ const updateUserAccount = AsyncHandler(async (req, res) => {
 
     const { fullName, phoneno, bio, skills } = req.body
 
+    console.log(typeof skills); // Should output 'string'
+    console.log(skills); // Should output 'string'
+
+
     // console.log(fullName);
     // console.log(bio);
     // console.log(phoneno);
@@ -229,19 +233,22 @@ const updateUserAccount = AsyncHandler(async (req, res) => {
 
     try {
         let skillsArray;
-        if (skills) {
-            skillsArray = skills.split(",");
+        if (skills && typeof skills === 'string') {
+            // Split the string by commas and trim whitespace from each skill
+            skillsArray = skills.split(',').map(skill => skill.trim());
         }
-    
+        console.log(skillsArray); // Should output 'string'
+
+
         // Create an object with the fields that need to be (Trying new way)
-    
+
         const updatedFields = {};
         if (fullName) updatedFields.fullName = fullName;
         if (phoneno) updatedFields.phoneno = phoneno;
         if (bio) updatedFields.bio = bio;
         if (skills) updatedFields.skills = skillsArray;
 
-    
+
         const user = await User.findByIdAndUpdate(req.user?._id,
             {
                 $set: updatedFields
@@ -250,11 +257,11 @@ const updateUserAccount = AsyncHandler(async (req, res) => {
                 new: true
             }
         ).select("-password")
-    
+
         if (!user) {
             throw new ApiError(400, "User Doesn't Exist")
         }
-    
+
         return res.status(200)
             .json(
                 new ApiResponse(200, user, "User Updated Successfully")

@@ -45,6 +45,12 @@ const JobsDescription = () => {
 
 
     const handleApply = async () => {
+
+        if(!user){
+            toast.error("You need to login to apply for the job.");
+            return;
+        }
+
         try {
             const res = await axios.get(`${APPLICATION_API_END_POINT}/applyJob/${jobId}`, {
                 withCredentials: true,
@@ -116,14 +122,15 @@ const JobsDescription = () => {
                                     </Badge>
                                 </div>
                             </div>
-                            <Button
-                                onClick={isApplied ? null : handleApply}
-                                disabled={isApplied}
-                                className={`px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-all duration-300 ${isApplied ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#159788] hover:bg-[#0f172ae6]'
-                                    }`}
-                            >
-                                {isApplied ? 'Already Applied' : 'Apply Now'}
-                            </Button>
+                                        <Button
+                                            onClick={isApplied ? null : handleApply}
+                                            disabled={isApplied}
+                                            className={`px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-all duration-300 ${isApplied ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#159788] hover:bg-[#0f172ae6]'
+                                                }`}
+                                        >
+                                            {isApplied ? 'Already Applied' : 'Apply Now'}
+                                        </Button>
+                                    
                         </div>
                         <h2 className="text-2xl font-semibold text-gray-800 border-b-2 border-gray-300 pb-2 mb-4">
                             {singleJob.description}
