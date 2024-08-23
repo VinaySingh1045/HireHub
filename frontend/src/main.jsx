@@ -14,6 +14,8 @@ import Jobs from './components/jobs/Jobs.jsx'
 import Browse from './components/Browse.jsx'
 import JobsDescription from './components/appliedjob/JobsDescription.jsx'
 import Companies from './components/compaines/Companies.jsx'
+import CreateCompanies from './components/compaines/CreateCompanies.jsx'
+import UpdateCompany from './components/compaines/UpdateCompany.jsx'
 
 const router = createBrowserRouter([
   {
@@ -55,6 +57,14 @@ const router = createBrowserRouter([
       {
         path: "/admin/companines",
         element: <Companies/>
+      },
+      {
+        path: "/admin/companines/create",
+        element: <CreateCompanies/>
+      },
+      {
+        path: "/admin/companines/:id",
+        element: <UpdateCompany/>
       },
     ]
 

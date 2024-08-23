@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CompaniesTable from './CompaniesTable'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
+import { useNavigate } from 'react-router-dom'
 
 const Companies = () => {
+
+    const navigate = useNavigate()
+    const [input, setInput] = useState("")
     return (
         <>
             <div>
@@ -12,10 +16,9 @@ const Companies = () => {
                         <Input
                             className="w-fit"
                             placeholder="Filter by name"
-                            // onChange={(e) => setInput(e.target.value)}
-                            //  onClick={() => navigate("/admin/companies/create")}
+                            onChange={(e) => setInput(e.target.value)}
                         />
-                        <Button className="bg-[#159788]">New Company</Button>
+                        <Button onClick={() => navigate("/admin/companines/create")} className="bg-[#159788]">New Company</Button>
                     </div>
                     <CompaniesTable />
                 </div>

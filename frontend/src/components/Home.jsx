@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import JobsCard from './jobs/JobsCard'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from './ui/button'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Search } from 'lucide-react'
 import useGetAllJobs from '@/hooks/useGetAllJobs'
 import LatestJobCard from './jobs/LatestJobCard'
 import { useSelector } from 'react-redux'
@@ -41,7 +41,7 @@ const Home = () => {
                 className="px-6 py-4 w-full focus:outline-none"
               />
 
-              <button className="bg-[#159788] text-white px-8 py-4 hover:bg-[#0f172ae6]">Search Job</button>
+              <button className="bg-[#159788] text-white px-8 py-2 hover:bg-[#0f172ae6] flex  items-center gap-3"><Search/>Search Job</button>
             </div>
 
             <div className="flex justify-center space-x-8 mt-10">

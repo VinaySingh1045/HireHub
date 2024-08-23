@@ -1,6 +1,9 @@
 import React from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { Badge } from '../ui/badge';
+import { Avatar, AvatarImage } from '../ui/avatar';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Edit, MoreHorizontal } from 'lucide-react';
 
 const CompaniesTable = () => {
     return (
@@ -22,35 +25,22 @@ const CompaniesTable = () => {
                         </TableHeader>
                         <TableBody>
                             <TableRow className="hover:bg-gray-50 cursor-pointer">
-                                <TableCell className="py-3">19-8-2024</TableCell>
-                                <TableCell className="py-3">Frontend</TableCell>
-                                <TableCell className="py-3">Google</TableCell>
                                 <TableCell className="py-3">
-                                    <Badge variant="success">Selected</Badge>
+                                    <Avatar>
+                                        <AvatarImage className="w-40" src="https://53.fs1.hubspotusercontent-na1.net/hub/53/hubfs/image8-2.jpg?width=1190&height=800&name=image8-2.jpg" />
+                                    </Avatar>
                                 </TableCell>
-                            </TableRow>
-                            <TableRow className="hover:bg-gray-50 cursor-pointer">
-                                <TableCell className="py-3">19-8-2024</TableCell>
-                                <TableCell className="py-3">Frontend</TableCell>
                                 <TableCell className="py-3">Google</TableCell>
-                                <TableCell className="py-3">
-                                    <Badge variant="success">Selected</Badge>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow className="hover:bg-gray-50 cursor-pointer">
                                 <TableCell className="py-3">19-8-2024</TableCell>
-                                <TableCell className="py-3">Frontend</TableCell>
-                                <TableCell className="py-3">Google</TableCell>
                                 <TableCell className="py-3">
-                                    <Badge variant="success">Selected</Badge>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow className="hover:bg-gray-50 cursor-pointer">
-                                <TableCell className="py-3">19-8-2024</TableCell>
-                                <TableCell className="py-3">Frontend</TableCell>
-                                <TableCell className="py-3">Google</TableCell>
-                                <TableCell className="py-3">
-                                    <Badge variant="success">Selected</Badge>
+                                    <Popover>
+                                        <PopoverTrigger>
+                                            <MoreHorizontal/>
+                                        </PopoverTrigger>
+                                        <PopoverContent>
+                                            <div className='flex items-center gap-5 cursor-pointer'> <Edit/>Edit</div>
+                                        </PopoverContent>
+                                    </Popover>
                                 </TableCell>
                             </TableRow>
                         </TableBody>
