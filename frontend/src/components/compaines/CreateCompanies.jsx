@@ -6,11 +6,10 @@ import { Label } from '../ui/label';
 import axios from 'axios';
 import { COMPANY_API_END_POINT } from '@/utlis/constants';
 import { toast } from 'sonner';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setSingleCompany } from '@/features/companySlice';
 
 const CreateCompanies = () => {
-
     const [companyName, setCompanyName] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -20,7 +19,7 @@ const CreateCompanies = () => {
         console.log(companyName);
         try {
             const res = await axios.post(`${COMPANY_API_END_POINT}/compRegister`,
-                { companyName }, // Ensure the key matches the server's expected field name
+                { companyName },
                 {
                     headers: {
                         'Content-Type': 'application/json'
@@ -29,7 +28,7 @@ const CreateCompanies = () => {
                 });
 
             if (res.data.success) {
-                dispatch(setSingleCompany(res.data.data))
+                dispatch(setSingleCompany(res.data.data));
                 toast.success(res.data.message);
                 const companyId = res.data.data._id;
                 navigate(`/admin/companines/${companyId}`);
@@ -38,29 +37,46 @@ const CreateCompanies = () => {
             console.log(error);
             if (error.response && error.response.status === 401) {
                 toast.error("Company Name is Required.");
+            } else if (error.response && error.response.status === 409) {
+                toast.error("Company already Registered.");
             }
         }
     };
 
     return (
         <>
-            <div className='max-w-4xl mx-auto'>
-                <div className='my-10'>
-                    <h1 className='font-bold text-2xl'>Your Company Name</h1>
-                    <p className='text-gray-500'>What would you like to give your company name? You can change it later anytime.</p>
-                </div>
+            <div className='min-h-[90vh] flex items-center justify-center bg-gray-100'>
+                <div className='bg-white shadow-lg rounded-lg p-8 w-full max-w-lg'>
+                    <div className='mb-8 text-center'>
+                        <h1 className='font-bold text-3xl text-gray-800 mb-2'>Your Company Name</h1>
+                        <p className='text-gray-500'>What would you like to name your company? You can change it later anytime.</p>
+                    </div>
 
-                <Label>Company Name</Label>
-                <Input
-                    type="text"
-                    className="my-2"
-                    placeholder="Google, Microsoft, etc."
-                    value={companyName} // Add the value prop to make it controlled
-                    onChange={(e) => setCompanyName(e.target.value)}
-                />
-                <div className='flex items-center gap-2 my-10'>
-                    <Button variant="outline" onClick={() => navigate("/admin/companines")}>Cancel</Button>
-                    <Button onClick={handleSubmit}>Continue</Button>
+                    <form onSubmit={handleSubmit}>
+                        <Label className='block text-gray-700 font-semibold'>Company Name</Label>
+                        <Input
+                            type="text"
+                            className="mt-2 mb-6 p-3 border border-gray-300 rounded-lg w-full focus:border-indigo-500 focus:ring-indigo-500"
+                            placeholder="Google, Microsoft, etc."
+                            value={companyName}
+                            onChange={(e) => setCompanyName(e.target.value)}
+                        />
+                        <div className='flex justify-between items-center'>
+                            <Button
+                                variant="outline"
+                                onClick={() => navigate("/admin/companines")}
+                                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-200 text-gray-600"
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                type="submit"
+                                className="px-4 py-2 bg-[#159788] text-white rounded-lg "
+                            >
+                                Continue
+                            </Button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </>
