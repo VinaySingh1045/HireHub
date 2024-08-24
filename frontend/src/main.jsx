@@ -13,9 +13,13 @@ import JobsCard from './components/jobs/JobsCard.jsx'
 import Jobs from './components/jobs/Jobs.jsx'
 import Browse from './components/Browse.jsx'
 import JobsDescription from './components/appliedjob/JobsDescription.jsx'
-import Companies from './components/compaines/Companies.jsx'
-import CreateCompanies from './components/compaines/CreateCompanies.jsx'
-import UpdateCompany from './components/compaines/UpdateCompany.jsx'
+import Companies from './components/admin/compaines/Companies.jsx'
+import CreateCompanies from './components/admin/compaines/CreateCompanies.jsx'
+import UpdateCompany from './components/admin/compaines/UpdateCompany.jsx'
+import AdminJobs from './components/admin/AdminJobs/AdminJobs.jsx'
+import AddJobs from './components/admin/AdminJobs/AddJobs.jsx'
+import UpdatePostJobs from './components/admin/AdminJobs/UpdatePostJobs.jsx'
+// import AddJobs from './components/admin/AdminJobs/'
 
 const router = createBrowserRouter([
   {
@@ -65,6 +69,18 @@ const router = createBrowserRouter([
       {
         path: "/admin/companines/:id",
         element: <UpdateCompany/>
+      },
+      {
+        path: "/admin/jobs/",
+        element: <AdminJobs/>
+      },
+      {
+        path: "/admin/jobs/create",
+        element: <AddJobs/>
+      },
+      {
+        path: "/admin/jobs/:id",
+        element: <UpdatePostJobs/>
       },
     ]
 

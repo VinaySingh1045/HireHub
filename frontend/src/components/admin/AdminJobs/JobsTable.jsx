@@ -1,44 +1,50 @@
-import React, { useEffect, useState } from 'react'
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
-import { Badge } from '../ui/badge';
-import { Avatar, AvatarImage } from '../ui/avatar';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { Edit, MoreHorizontal } from 'lucide-react';
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { JOB_API_END_POINT } from '@/utlis/constants';
 import axios from 'axios';
-import { COMPANY_API_END_POINT } from '@/utlis/constants';
-import { toast } from 'sonner';
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Edit, MoreHorizontal } from 'lucide-react';
 
-const CompaniesTable = ({ filter }) => {
+const JobsTable = ({ filter }) => {
 
-    const [companies, setCompanies] = useState([]);
+    const [jobs, setJobs] = useState([]);
     const navigate = useNavigate();
 
     // Fetch companies from API
 
     useEffect(() => {
-        const fetchCompany = async () => {
+        const fetchJob = async () => {
             try {
-                const res = await axios.get(`${COMPANY_API_END_POINT}/getCompany`, {
+                const res = await axios.get(`${JOB_API_END_POINT}/getAdminJobs`, {
                     withCredentials: true
                 });
                 // console.log("API Response:", res.data);
-                console.log("Companies Data:", res.data.data);
+                console.log("Jobs Data:", res.data.data);
                 if (res.data.success) {
-                    setCompanies(res.data.data);
+                    setJobs(res.data.data);
                     // toast.success(res.data.message);
                 }
             } catch (error) {
-                console.error("Error fetching companies:", error);
+                console.error("Error fetching Jobs:", error);
             }
         }
-        fetchCompany();
+        fetchJob();
     }, []);
 
-    const filterCompany = () => {
-        return companies.filter((company) => (company.companyName.toLowerCase().includes(filter.toLowerCase())))
+    const filterJob = () => {
+        return jobs.filter((job) => (job.title.toLowerCase().includes(filter.toLowerCase())) || (job.company.companyName.toLowerCase().includes(filter.toLowerCase())) )
     }
-    const filteredCompanies = filterCompany()
+    const filteredJobs = filterJob()
+
 
     return (
         <>
@@ -47,41 +53,39 @@ const CompaniesTable = ({ filter }) => {
                     <h1 className="font-bold text-2xl mb-4">See Companies</h1>
                     <Table className="w-full bg-white shadow rounded-lg overflow-hidden">
                         <TableCaption className="text-gray-500 mb-2">
-                            A list of Companies that have been applied to your business
+                            A list of Jobs that have been made by you
                         </TableCaption>
                         <TableHeader className="bg-gray-100">
                             <TableRow>
-                                <TableHead>Logo</TableHead>
-                                <TableHead>Name</TableHead>
+                                <TableHead>Company Name</TableHead>
+                                <TableHead>Title</TableHead>
                                 <TableHead>Date</TableHead>
                                 <TableHead>Action</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {
-                                filteredCompanies.length === 0 ? (
+                                filteredJobs.length === 0 ? (
                                     <TableRow>
                                         <TableCell colSpan="4" className="text-center py-3">No Companies Available</TableCell>
                                     </TableRow>
                                 ) :
-                                filteredCompanies.map((company) => (
+                                    filteredJobs.map((job) => (
 
-                                        <TableRow key={company._id} className="hover:bg-gray-50 cursor-pointer">
+                                        <TableRow key={job._id} className="hover:bg-gray-50 cursor-pointer">
                                             <TableCell className="py-3">
-                                                <Avatar>
-                                                    <AvatarImage className="w-40" src={company.logo} />
-                                                </Avatar>
+                                                {job.company.companyName}
                                             </TableCell>
-                                            <TableCell className="py-3">{company.companyName
+                                            <TableCell className="py-3">{job.title
                                             }</TableCell>
-                                            <TableCell className="py-3">{company.createdAt}</TableCell>
+                                            <TableCell className="py-3">{job.createdAt.split("T")[0]}</TableCell>
                                             <TableCell className="py-3">
                                                 <Popover>
                                                     <PopoverTrigger>
                                                         <MoreHorizontal />
                                                     </PopoverTrigger>
                                                     <PopoverContent>
-                                                        <div onClick={() => navigate(`/admin/companines/${company._id}`)} className='flex items-center gap-5 cursor-pointer'> <Edit />Edit</div>
+                                                        <div onClick={() => navigate(`/admin/jobs/${job._id}`)} className='flex items-center gap-5 cursor-pointer'> <Edit />Edit</div>
                                                     </PopoverContent>
                                                 </Popover>
                                             </TableCell>
@@ -97,4 +101,4 @@ const CompaniesTable = ({ filter }) => {
     )
 }
 
-export default CompaniesTable
+export default JobsTable
