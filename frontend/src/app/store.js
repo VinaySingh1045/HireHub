@@ -14,6 +14,7 @@ import {
     REGISTER,
 } from 'redux-persist'
 import companySlice from "@/features/companySlice";
+import applicantSlice from "@/features/applicantSlice";
 
 
 const persistConfig = {
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
     auth: authSlice,
     job: jobSlice,
     company: companySlice,
+    applicant: applicantSlice,
 });
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);

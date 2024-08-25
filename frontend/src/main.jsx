@@ -19,6 +19,9 @@ import UpdateCompany from './components/admin/compaines/UpdateCompany.jsx'
 import AdminJobs from './components/admin/AdminJobs/AdminJobs.jsx'
 import AddJobs from './components/admin/AdminJobs/AddJobs.jsx'
 import UpdatePostJobs from './components/admin/AdminJobs/UpdatePostJobs.jsx'
+import { Provider } from 'react-redux'
+import { store } from './app/store.js'
+import GetApplicants from './components/admin/applicants/GetApplicants.jsx'
 // import AddJobs from './components/admin/AdminJobs/'
 
 const router = createBrowserRouter([
@@ -28,8 +31,8 @@ const router = createBrowserRouter([
 
     children: [
       {
-        path:"",
-        element:<Home/>
+        path: "",
+        element: <Home />
       },
       {
         path: "/login",
@@ -45,42 +48,46 @@ const router = createBrowserRouter([
       },
       {
         path: "/jobs",
-        element: <Jobs/>
+        element: <Jobs />
       },
       {
         path: "/jobs/description/:id",
-        element: <JobsDescription/>
+        element: <JobsDescription />
       },
       {
         path: "/browse",
-        element: <Browse/>
+        element: <Browse />
       },
 
       // Admin interface
 
       {
         path: "/admin/companines",
-        element: <Companies/>
+        element: <Companies />
       },
       {
         path: "/admin/companines/create",
-        element: <CreateCompanies/>
+        element: <CreateCompanies />
       },
       {
         path: "/admin/companines/:id",
-        element: <UpdateCompany/>
+        element: <UpdateCompany />
       },
       {
         path: "/admin/jobs/",
-        element: <AdminJobs/>
+        element: <AdminJobs />
       },
       {
         path: "/admin/jobs/create",
-        element: <AddJobs/>
+        element: <AddJobs />
       },
       {
         path: "/admin/jobs/:id",
-        element: <UpdatePostJobs/>
+        element: <UpdatePostJobs />
+      },
+      {
+        path: "/admin/jobs/:id/getApplicants",
+        element: <GetApplicants />
       },
     ]
 
@@ -90,7 +97,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* <App /> */}
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
     <Toaster />
   </StrictMode>,
 )

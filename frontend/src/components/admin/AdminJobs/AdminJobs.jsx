@@ -24,8 +24,9 @@ const AdminJobs = () => {
                         onClick={() => navigate("/admin/jobs/create")}
                         className="w-full md:w-auto bg-[#159788] text-white py-2 px-6 rounded-lg hover:bg-[#138b77] transition-all duration-200"
                     >
-                        New Job
+                        Add New Job
                     </Button>
+                    
                 </div>
                 <JobsTable filter={input} />
             </div>

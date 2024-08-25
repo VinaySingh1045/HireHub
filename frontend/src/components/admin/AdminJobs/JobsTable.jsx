@@ -12,7 +12,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Edit, MoreHorizontal } from 'lucide-react';
+import { Edit, MoreHorizontal, User } from 'lucide-react';
 
 const JobsTable = ({ filter }) => {
 
@@ -41,7 +41,7 @@ const JobsTable = ({ filter }) => {
     }, []);
 
     const filterJob = () => {
-        return jobs.filter((job) => (job.title.toLowerCase().includes(filter.toLowerCase())) || (job.company.companyName.toLowerCase().includes(filter.toLowerCase())) )
+        return jobs.filter((job) => (job.title.toLowerCase().includes(filter.toLowerCase())) || (job.company.companyName.toLowerCase().includes(filter.toLowerCase())))
     }
     const filteredJobs = filterJob()
 
@@ -86,6 +86,9 @@ const JobsTable = ({ filter }) => {
                                                     </PopoverTrigger>
                                                     <PopoverContent>
                                                         <div onClick={() => navigate(`/admin/jobs/${job._id}`)} className='flex items-center gap-5 cursor-pointer'> <Edit />Edit</div>
+
+                                                        <div onClick={() => navigate(`/admin/jobs/${job._id}/getApplicants`)} className='flex items-center gap-5 cursor-pointer mt-5'> <User />See Applicants</div>
+
                                                     </PopoverContent>
                                                 </Popover>
                                             </TableCell>
