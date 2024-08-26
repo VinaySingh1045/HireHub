@@ -42,7 +42,7 @@ const Profile = () => {
         <div className="flex items-center p-6">
           <img onClick={() => setopenAvatar(true)}
             className="h-20 w-20 rounded-full object-cover shadow-md cursor-pointer"
-            src={user.avatar} 
+            src={user.avatar}
             alt="https://via.placeholder.com/150"
           />
           <div className="ml-7">
@@ -70,62 +70,76 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h3 className="text-gray-800 text-lg font-semibold">Skills</h3>
-          <div className="flex flex-wrap mt-2 gap-2">
-            {user.skills.map((item, index) => (
-              <span
-                key={index}
-                className="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="px-6 py-4">
-          <div className='flex items-center justify-between'>
-            <h3 className="text-gray-800 text-lg font-semibold">Resume</h3>
-            <button onClick={() => { setopenResume(true) }} className="text-gray-600 hover:text-gray-800">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16.862 4.487l2.651 2.65-12.72 12.72-4.13.457.457-4.13L16.862 4.487z"
-                />
-              </svg>
-            </button>
-          </div>
-          <ul className="mt-2">
-            <li>
-              {
-                user.resume ? (
-                  <a
-                    target="_blank"
-                    href={user.resume}
-                    className="text-blue-500 hover:underline"
+        {
+          user.role === "jobSeeker" ?
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h3 className="text-gray-800 text-lg font-semibold">Skills</h3>
+              <div className="flex flex-wrap mt-2 gap-2">
+                {user.skills.map((item, index) => (
+                  <span
+                    key={index}
+                    className="bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-1 rounded"
                   >
-                    {user.resume}
-                  </a>
-                ) : <span className='text-black'>Resume Not Submitted</span>
-              }
-            </li>
-          </ul>
-        </div>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+            : <div className="px-6 py-4 border-b border-gray-200">
+              <h3 className="text-gray-800 text-lg font-semibold">About me</h3>
+              <div className="flex flex-wrap mt-2 gap-2">
+                {user.aboutMe}
+              </div>
+            </div>
+        }
+        {
+          user.role === "jobSeeker" &&
+          <div className="px-6 py-4">
+            <div className='flex items-center justify-between'>
+              <h3 className="text-gray-800 text-lg font-semibold">Resume</h3>
+              <button onClick={() => { setopenResume(true) }} className="text-gray-600 hover:text-gray-800">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M16.862 4.487l2.651 2.65-12.72 12.72-4.13.457.457-4.13L16.862 4.487z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <ul className="mt-2">
+              <li>
+                {
+                  user.resume ? (
+                    <a
+                      target="_blank"
+                      href={user.resume}
+                      className="text-blue-500 hover:underline"
+                    >
+                      {user.resume}
+                    </a>
+                  ) : <span className='text-black'>Resume Not Submitted</span>
+                }
+              </li>
+            </ul>
+          </div>
+        }
       </div>
 
-      <div className="max-w-7xl mx-auto bg-white rounded-lg mt-7 shadow-xl p-6 mb-5 ">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">Applied Jobs</h3>
-        <AppliedJobsTable />
-      </div>
+      {
+        user.role === "jobSeeker" &&
+        <div className="max-w-7xl mx-auto bg-white rounded-lg mt-7 shadow-xl p-6 mb-5 ">
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">Applied Jobs</h3>
+          <AppliedJobsTable />
+        </div>
+      }
 
       <div>
         <UpdateProfile open={open} setOpen={setOpen} />
@@ -134,7 +148,7 @@ const Profile = () => {
       <div>
         <UpdateResume open={openResume} setOpen={setopenResume} />
       </div>
-      
+
       <div>
         <UpdateAvatar open={openAvatar} setOpen={setopenAvatar} />
       </div>

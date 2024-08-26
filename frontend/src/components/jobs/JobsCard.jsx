@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const JobsCard = ({ job }) => {
     const navigate = useNavigate();
     // const jobid = "jndajknjnldsnk";
-    console.log("Logo URL: ", job?.company?.logo);
+    // console.log("Logo URL: ", job?.company?.logo);
 
     const daysAgoFunction = (mongodbTime) => {
         const createdAt = new Date(mongodbTime);

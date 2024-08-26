@@ -25,6 +25,7 @@ const UpdateProfile = ({ open, setOpen }) => {
         fullName: user?.fullName || "",
         bio: user?.bio || "",
         phoneno: user?.phoneno || "",
+        aboutMe: user?.aboutMe || "",
         // skills: user?.skills?.map(skill => skill) || "",
         skills: Array.isArray(user?.skills) ? user.skills.join(", ") : user?.skills || "",
         // avatar: user?.avatar || "",
@@ -45,6 +46,7 @@ const UpdateProfile = ({ open, setOpen }) => {
             fullName: input.fullName,
             bio: input.bio,
             phoneno: input.phoneno,
+            aboutMe: input.aboutMe,
             // skills: input.skills
             skills: typeof input.skills === "string" ? input.skills : input.skills.toString(),
         }
@@ -134,20 +136,39 @@ const UpdateProfile = ({ open, setOpen }) => {
                             />
                         </div>
 
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="skill">
-                                Skills
+                        {
+                            user.role === "jobSeeker" ?
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="skill">
+                                    Skills
+                                </label>
+                                <input
+                                    type="text"
+                                    id="skills"
+                                    name="skills"
+                                    value={input.skills || ""}
+                                    onChange={handleChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    placeholder="Enter your skills"
+                                />
+                            </div>
+                            : (
+                                <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="aboutMe">
+                                About Me
                             </label>
-                            <input
+                            <textarea
                                 type="text"
-                                id="skills"
-                                name="skills"
-                                value={input.skills || ""}
+                                id="aboutMe"
+                                name="aboutMe"
+                                value={input.aboutMe || ""}
                                 onChange={handleChange}
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                placeholder="Enter your skills"
+                                placeholder="Write Your Self Here"
                             />
                         </div>
+                            )
+                        }
                         {/* 
                         <div className="mb-6">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="avatar">

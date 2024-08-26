@@ -22,7 +22,7 @@ import UpdatePostJobs from './components/admin/AdminJobs/UpdatePostJobs.jsx'
 import { Provider } from 'react-redux'
 import { store } from './app/store.js'
 import GetApplicants from './components/admin/applicants/GetApplicants.jsx'
-// import AddJobs from './components/admin/AdminJobs/'
+import ProtectedRoute from './components/admin/ProtectedRoute.jsx'
 
 const router = createBrowserRouter([
   {
@@ -63,31 +63,51 @@ const router = createBrowserRouter([
 
       {
         path: "/admin/companines",
-        element: <Companies />
+        element: <ProtectedRoute>
+          <Companies />
+        </ProtectedRoute>
       },
       {
         path: "/admin/companines/create",
-        element: <CreateCompanies />
+        element:
+          <ProtectedRoute>
+            <CreateCompanies />
+          </ProtectedRoute>
       },
       {
         path: "/admin/companines/:id",
-        element: <UpdateCompany />
+        element:
+          <ProtectedRoute>
+            <UpdateCompany />
+          </ProtectedRoute>
       },
       {
         path: "/admin/jobs/",
-        element: <AdminJobs />
+        element:
+          <ProtectedRoute>
+            <AdminJobs />
+          </ProtectedRoute>
       },
       {
         path: "/admin/jobs/create",
-        element: <AddJobs />
+        element:
+          <ProtectedRoute>
+            <AddJobs />
+          </ProtectedRoute>
       },
       {
         path: "/admin/jobs/:id",
-        element: <UpdatePostJobs />
+        element:
+          <ProtectedRoute>
+            <UpdatePostJobs />
+          </ProtectedRoute>
       },
       {
         path: "/admin/jobs/:id/getApplicants",
-        element: <GetApplicants />
+        element:
+          <ProtectedRoute>
+            <GetApplicants />
+          </ProtectedRoute>
       },
     ]
 

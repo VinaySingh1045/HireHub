@@ -1,27 +1,52 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
 import { Label } from '../ui/label'
+import { useDispatch } from 'react-redux';
+import { setFilterJob } from '@/features/jobSlice';
 
 const FilterJobs = () => {
+
+    const [selectedValue, setSelectedValue] = useState("");
+    const dispatch = useDispatch();
+
+
+    const handleSelect = (value) => {
+        if (value === selectedValue) {
+            // If the same value is clicked again, deselect it
+            setSelectedValue("");
+            dispatch(setFilterJob("")); // Reset the filter
+          } else {
+            setSelectedValue(value);
+            dispatch(setFilterJob(value));
+            // console.log("value: " , value);
+          }
+    }
+    useEffect(() => {
+        return () => {
+          dispatch(setFilterJob(""))
+        }
+      }, [])
+
+
     const filterData = [
         {
-            filterType: "Location",
-            array: ["Delhi NCR", "Surat", "Bangalore", "Hyderabad", "Pune", "Mumbai"]
+            filterType: "Company",
+            array: ["Strontium", "Infosis", "Amazon", "Microsoft", "Google"]
         },
         {
             filterType: "Industry",
-            array: ["Frontend Developer", "Backend Developer", "FullStack Developer"]
+            array: ["Frontend Developer", "Backend Developer", "FullStack Developer","React Developer", "Node Developer"]
         },
         {
-            filterType: "Salary",
-            array: ["0-40k", "42-1lakh", "1lakh to 5lakh" , "5lakh to 10lakh" , "10lakh && above"]
+            filterType: "Location",
+            array: ["Delhi", "Surat", "Bangalore", "Hyderabad", "Pune", "Mumbai"]
         },
     ]
 
     return (
-        <div className="w-full bg-white p-6 rounded-md shadow-lg">
+        <div className="w-full bg-gray-200 p-6 rounded-md shadow-lg">
             <h1 className="font-bold text-xl mb-4">Filter Jobs</h1>
-            <RadioGroup>
+            <RadioGroup value={selectedValue} onValueChange={handleSelect}>
                 {filterData.map((data, index) => (
                     <div key={index} className="mb-6">
                         <h2 className="font-semibold text-lg mb-3">{data.filterType}</h2>

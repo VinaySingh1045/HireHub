@@ -215,7 +215,7 @@ const updateUserAccount = AsyncHandler(async (req, res) => {
     // console.log('Request Body:', req.body);
 
 
-    const { fullName, phoneno, bio, skills } = req.body
+    const { fullName, phoneno, bio, skills, aboutMe } = req.body
 
     console.log(typeof skills); // Should output 'string'
     console.log(skills); // Should output 'string'
@@ -246,6 +246,7 @@ const updateUserAccount = AsyncHandler(async (req, res) => {
         if (fullName) updatedFields.fullName = fullName;
         if (phoneno) updatedFields.phoneno = phoneno;
         if (bio) updatedFields.bio = bio;
+        if (aboutMe) updatedFields.aboutMe = aboutMe;
         if (skills) updatedFields.skills = skillsArray;
 
 

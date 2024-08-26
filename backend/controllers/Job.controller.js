@@ -95,6 +95,52 @@ const getJobById = AsyncHandler(async (req, res) => {
 
 })
 
+const updateJob = AsyncHandler(async (req, res) => {
+
+    const { title, description, requirements, salary } = req.body
+    const jobId = req.params.id
+
+    try {
+
+        let requirementsArray;
+        if (requirements && typeof requirements === 'string') {
+            // Split the string by commas and trim whitespace from each skill
+            requirementsArray = requirements.split(',').map(skill => skill.trim());
+        }
+        console.log(requirementsArray);
+
+        const updatedJob = {}
+        if (title) updatedJob.title = title;
+        if (description) updatedJob.description = description
+        if (requirements) updatedJob.requirements = requirementsArray
+        if (salary) updatedJob.salary = salary
+
+        const job = await Job.findByIdAndUpdate(jobId,
+            {
+                $set: updatedJob
+            },
+            {
+                new: true
+            }
+        )
+
+        if (!job) {
+            throw new ApiError(404, "Job not found");
+        }
+
+        return res.status(200)
+            .json(
+                new ApiResponse(200, job, "Job updated successfully")
+            )
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json(
+            new ApiError(500, "An error occurred while updating the job")
+        );
+    }
+})
+
 const getAdminJobs = AsyncHandler(async (req, res) => {
 
     const adminId = req.user?.id;
@@ -118,4 +164,4 @@ const getAdminJobs = AsyncHandler(async (req, res) => {
 
 })
 
-export { addJobs, getAllJobs, getJobById ,getAdminJobs }
+export { addJobs, getAllJobs, getJobById, getAdminJobs, updateJob }

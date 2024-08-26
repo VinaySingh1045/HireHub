@@ -50,7 +50,7 @@ const JobsTable = ({ filter }) => {
         <>
             <div className=''>
                 <div className="p-4">
-                    <h1 className="font-bold text-2xl mb-4">See Companies</h1>
+                    <h1 className="font-bold text-2xl mb-4">See Jobs</h1>
                     <Table className="w-full bg-white shadow rounded-lg overflow-hidden">
                         <TableCaption className="text-gray-500 mb-2">
                             A list of Jobs that have been made by you
@@ -67,7 +67,7 @@ const JobsTable = ({ filter }) => {
                             {
                                 filteredJobs.length === 0 ? (
                                     <TableRow>
-                                        <TableCell colSpan="4" className="text-center py-3">No Companies Available</TableCell>
+                                        <TableCell colSpan="4" className="text-center py-3">No Jobs Available</TableCell>
                                     </TableRow>
                                 ) :
                                     filteredJobs.map((job) => (

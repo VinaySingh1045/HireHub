@@ -29,6 +29,9 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Role is required"],
         enum: ["jobSeeker", "employer"]
     },
+    aboutMe:{
+        type: String,
+    },
 
     bio: {
         type: String,
