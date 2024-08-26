@@ -2,7 +2,7 @@ import { store } from '@/app/store'
 import { setLoading, setUser } from '@/features/authSlice'
 import { USER_API_END_POINT } from '@/utlis/constants'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -12,7 +12,7 @@ const Login = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { loading } = useSelector(store => store.auth)
+    const { loading, user } = useSelector(store => store.auth)
     // const { user } = useSelector(store => store.auth)
     // const authUser = useSelector((state)=>state.auth.user)
     const [userData, setuserData] = useState({
@@ -69,6 +69,12 @@ const Login = () => {
             dispatch(setLoading(false))
         }
     }
+    useEffect(() => {
+      if(user){
+        navigate("/")
+      }
+    }, [])
+    
 
     return (
         <>

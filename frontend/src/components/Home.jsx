@@ -54,7 +54,7 @@ const Home = () => {
                   </div>
                   <div className="text-2xl font-bold">25,850</div>
                 </div>
-                <div className="text-gray-300">Jobs</div>
+                <div className="text-gray-300 ml-14">Jobs</div>
               </div>
               <div className="text-center">
                 <div className='flex gap-4 justify-center'>
@@ -68,7 +68,7 @@ const Home = () => {
                   </div>
                   <div className="text-2xl font-bold">10,250</div>
                 </div>
-                <div className="text-gray-300">Candidates</div>
+                <div className="text-gray-300 ml-14">Candidates</div>
               </div>
               <div className="text-center">
                 <div className='flex gap-4 justify-center'>
@@ -79,7 +79,7 @@ const Home = () => {
                   </div>
                   <div className="text-2xl font-bold">12,150</div>
                 </div>
-                <div className="text-gray-300">Employers</div>
+                <div className="text-gray-300 ml-14">Employers</div>
               </div>
             </div>
 
