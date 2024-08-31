@@ -66,14 +66,18 @@ const Navbar = () => {
                                 <PopoverContent className='flex flex-col gap-2'>
                                     {authUser && authUser.role === "employer" ? (
                                         <>
-                                            <NavLink to={"/admin/companines"} className="block py-2 px-4 text-gray-700 hover:bg-gray-100">Companies</NavLink>
-                                            <NavLink to={"/admin/jobs"} className="block py-2 px-4 text-gray-700 hover:bg-gray-100">Jobs</NavLink>
+                                            <ul>
+                                                <li className='mx-3 mb-5' ><NavLink to={"/admin/companines"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700 `}>Companies</NavLink></li>
+                                                <li className='mx-3' ><NavLink to={"/admin/jobs"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Jobs</NavLink></li>
+                                            </ul>
                                         </>
                                     ) : (
                                         <>
-                                            <NavLink to={"/"} className="block py-2 px-4 text-gray-700 hover:bg-gray-100">Home</NavLink>
-                                            <NavLink to={"/jobs"} className="block py-2 px-4 text-gray-700 hover:bg-gray-100">Jobs</NavLink>
-                                            <NavLink to={"/browse"} className="block py-2 px-4 text-gray-700 hover:bg-gray-100">Browse</NavLink>
+                                            <ul className=''>
+                                                <li className='mx-3 mb-5'><NavLink to={"/"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Home</NavLink></li>
+                                                <li className='mx-3 mb-5'><NavLink to={"/jobs"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Jobs</NavLink></li>
+                                                <li className='mx-3'><NavLink to={"/browse"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Browse</NavLink></li>
+                                            </ul>
                                         </>
                                     )}
                                 </PopoverContent>

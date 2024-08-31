@@ -33,7 +33,9 @@ const Jobs = () => {
       </div>
 
       {/* Right Content Section */}
+      
       <div className="w-full lg:w-3/4 lg:ml-[25%] h-screen lg:overflow-y-auto shadow-lg bg-white">
+
         {/* in this i am using  framer-motion(package hai) for animation which i am putting on div  */}
         {
           filterJobs.length === 0

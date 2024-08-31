@@ -120,7 +120,7 @@ const Home = () => {
                 <div>The right job is out there.</div>
               </p>
               <div className="mt-8 flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start">
-                <Link to={"/browse"}>
+                <Link to={"/jobs"}>
                   <Button className="py-8 rounded-lg bg-[#159788]"><span className='flex items-center gap-3'>Search Jobs <ArrowRight /></span></Button>
                 </Link>
               </div>
