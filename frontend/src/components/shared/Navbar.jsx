@@ -22,7 +22,7 @@ const Navbar = () => {
             });
             if (res.data.success) {
                 dispatch(setUser(null));
-                navigate("/");
+                navigate("/login");
                 toast.success(res.data.message);
             }
         } catch (error) {
@@ -35,11 +35,20 @@ const Navbar = () => {
         <>
             <div className='bg-[#dcdcdc] sticky top-0 z-50 shadow-lg'>
                 <div className='flex items-center justify-between mx-auto max-w-7xl h-16'>
-                    <Link to={"/"}>
-                        <div className='font-bold text-3xl cursor-pointer'>
-                            <span className='text-4xl'>👜</span> Hire<span className='text-[#159788]'>Hub</span>
-                        </div>
-                    </Link>
+                    {
+                        authUser && authUser.role === "jobSeeker" ?
+                            <Link to={"/"}>
+                                <div className='font-bold text-3xl cursor-pointer'>
+                                    <span className='text-4xl'>👜</span> Hire<span className='text-[#159788]'>Hub</span>
+                                </div>
+                            </Link>
+                            :
+                            <Link to={"/admin/companines"}>
+                                <div className='font-bold text-3xl cursor-pointer'>
+                                    <span className='text-4xl'>👜</span> Hire<span className='text-[#159788]'>Hub</span>
+                                </div>
+                            </Link>
+                    }
                     <div className='flex items-center gap-5'>
                         {/* Desktop Menu */}
                         <ul className='hidden md:flex gap-5 items-center font-bold'>
@@ -52,7 +61,11 @@ const Navbar = () => {
                                 <>
                                     <li><NavLink to={"/"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Home</NavLink></li>
                                     <li><NavLink to={"/jobs"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Jobs</NavLink></li>
-                                    <li><NavLink to={"/browse"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Browse</NavLink></li>
+                                    {/* <li><NavLink to={"/browse"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Browse</NavLink></li> */}
+                                    {
+                                        authUser && authUser.role === "jobSeeker" &&
+                                        <li><NavLink to={"/apply"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Applied Jobs</NavLink></li>
+                                    }
                                 </>
                             )}
                         </ul>
@@ -104,7 +117,9 @@ const Navbar = () => {
                                 <PopoverContent>
                                     <div className='flex gap-4 items-center'>
                                         <Avatar>
-                                            <AvatarImage src={authUser.avatar} />
+                                            <AvatarImage src={authUser.avatar}
+                                                alt="https://github.com/shadcn.png"
+                                            />
                                         </Avatar>
                                         <div>
                                             <h2>{authUser.fullName}</h2>

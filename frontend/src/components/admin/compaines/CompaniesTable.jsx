@@ -3,7 +3,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { Badge } from '../../ui/badge';
 import { Avatar, AvatarImage } from '../../ui/avatar';
 import { Popover, PopoverContent, PopoverTrigger } from '../../ui/popover';
-import { Edit, MoreHorizontal } from 'lucide-react';
+import { Edit, MoreHorizontal, PlusIcon, PlusSquareIcon } from 'lucide-react';
 import axios from 'axios';
 import { COMPANY_API_END_POINT } from '@/utlis/constants';
 import { toast } from 'sonner';
@@ -82,6 +82,7 @@ const CompaniesTable = ({ filter }) => {
                                                     </PopoverTrigger>
                                                     <PopoverContent>
                                                         <div onClick={() => navigate(`/admin/companines/${company._id}`)} className='flex items-center gap-5 cursor-pointer'> <Edit />Edit</div>
+                                                        <div onClick={() => navigate(`/admin/jobs/create/${company._id}`)} className='flex items-center gap-5 cursor-pointer my-3'> <PlusSquareIcon/> Add Job</div>
                                                     </PopoverContent>
                                                 </Popover>
                                             </TableCell>

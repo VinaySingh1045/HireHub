@@ -3,6 +3,9 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { Badge } from '../ui/badge';
 import axios from 'axios';
 import { APPLICATION_API_END_POINT } from '@/utlis/constants';
+import { Button } from '../ui/button';
+import { MoveRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const AppliedJobsTable = () => {
 
@@ -62,6 +65,11 @@ const AppliedJobsTable = () => {
                                     ))}
                         </TableBody>
                     </Table>
+                </div>
+                <div>
+                    <Link to={"/jobs"}>
+                        <Button className=" bg-[#159788] ml-4 mb-7">Apply More </Button>
+                    </Link>
                 </div>
             </div>
         </>

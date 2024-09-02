@@ -244,7 +244,7 @@ const AddJobs = () => {
           </form>
         </div>
       </div>
-    </>
+    </> 
 
   );
 };

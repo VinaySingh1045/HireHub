@@ -5,11 +5,14 @@ import { Button } from '../ui/button';
 import { AvatarImage } from '../ui/avatar';
 import { Bookmark } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import { useSelector } from 'react-redux';
 
 const JobsCard = ({ job }) => {
     const navigate = useNavigate();
     // const jobid = "jndajknjnldsnk";
     // console.log("Logo URL: ", job?.company?.logo);
+    const { user } = useSelector(state => state.auth)
 
     const daysAgoFunction = (mongodbTime) => {
         const createdAt = new Date(mongodbTime);
@@ -30,7 +33,7 @@ const JobsCard = ({ job }) => {
                     <Button className="p-1" variant="outline" size="icon">
                         <Avatar className="w-25 h-25">
                             <AvatarImage
-                                src={job.company.logo}
+                                src={job?.company?.logo}
                                 className="w-full h-full object-cover"
                                 alt="Company Logo"
                             />
@@ -38,22 +41,30 @@ const JobsCard = ({ job }) => {
                     </Button>
 
                     <div>
-                        <h1 className='font-medium text-lg'>{job.company.companyName || "Company Name"}</h1>
+                        <h1 className='font-medium text-lg'>{job?.company?.companyName || "Company Name"}</h1>
                         <p className='text-sm text-gray-500'>{"India"}</p>
                     </div>
                 </div>
 
                 <div>
-                    <h1 className='font-bold text-lg my-2'>{job.title || "Title"}</h1>
-                    <p className='text-sm text-gray-600'>{job.description || "Description"}</p>
+                    <h1 className='font-bold text-lg my-2'>{job?.title || "Title"}</h1>
+                    <p className='text-sm text-gray-600'>{job?.description || "Description"}</p>
                 </div>
                 <div className='flex items-center gap-2 mt-4'>
-                    <Badge className='text-blue-700 font-bold' variant="ghost">{job.location || "HR Positions"}</Badge>
-                    <Badge className='text-[#F83002] font-bold' variant="ghost">{job.type || "Full-Time"}</Badge>
-                    <Badge className='text-[#7209b7] font-bold' variant="ghost">{job.salary || "500000 LPA"}</Badge>
+                    <Badge className='text-blue-700 font-bold' variant="ghost">{job?.location || "HR Positions"}</Badge>
+                    <Badge className='text-[#F83002] font-bold' variant="ghost">{job?.type || "Full-Time"}</Badge>
+                    <Badge className='text-[#7209b7] font-bold' variant="ghost">{job?.salary || "500000 LPA"}</Badge>
                 </div>
                 <div className='flex items-center gap-4 mt-4'>
-                    <Button onClick={() => { navigate(`/jobs/description/${job?._id}`) }} variant="outline">Details</Button>
+                    <Button onClick={() => {
+                        if (!user) {
+                            toast.error("Please Login To See Details");
+                            return;
+                        }
+                        navigate(`/jobs/description/${job?._id}`)
+                    }} variant="outline">
+                        Details
+                    </Button>
                     <Button className="bg-[#159788] text-white">Save For Later</Button>
                 </div>
             </div>

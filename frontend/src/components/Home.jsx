@@ -7,23 +7,36 @@ import useGetAllJobs from '@/hooks/useGetAllJobs'
 import LatestJobCard from './jobs/LatestJobCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearchJob } from '@/features/jobSlice'
+import { toast } from 'sonner'
+import useGetAllJobss from '@/hooks/useGetAllJobss'
 
 const Home = () => {
 
   const [query, setQuery] = useState("");
+  const { user } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleSearchJob = () => {
+    if (!user) {
+      toast.error("Please Login To Search")
+      return
+    } 
+    else if (user && user.role === "employer") {
+      // navigate("/admin/jobs")
+      toast.error("You can't Search Jobs")
+      return
+    }
     dispatch(setSearchJob(query))
     navigate("/browse")
   }
 
-  useGetAllJobs();
+  // useGetAllJobs();
+  useGetAllJobss();
   return (
     <>
       <div className=' bg-[#f3f4f6]'>
-      <section className="relative bg-hero bg-cover bg-center h-screen flex flex-col justify-center items-center text-center text-white">
+        <section className="relative bg-hero bg-cover bg-center h-screen flex flex-col justify-center items-center text-center text-white">
           {/* Dim overlay */}
           <div className="absolute inset-0 bg-black opacity-[0.7]"></div>
 
@@ -37,6 +50,7 @@ const Home = () => {
                 placeholder="Type Job Title"
                 onChange={(e) => setQuery(e.target.value)}
                 className="px-6 py-4 w-full focus:outline-none"
+                required
               />
 
               <button onClick={handleSearchJob} className="bg-[#159788] text-white px-8 py-4 sm:py-2 w-full sm:w-auto hover:bg-[#0f172ae6] flex items-center justify-center gap-3"><Search />Search Job</button>
@@ -95,9 +109,12 @@ const Home = () => {
           </div>
         </div>
         <div className='text-center mx-auto'>
-          <Link to={"/jobs"}>
-            <Button className="py-8 rounded-lg my-4 mb-6 bg-[#159788]"><span className='flex items-center gap-3'>Explore Jobs <ArrowRight /></span></Button>
-          </Link>
+          {
+            user && user.role === "jobSeeker" &&
+            <Link to={"/jobs"}>
+              <Button className="py-8 rounded-lg my-4 mb-6 bg-[#159788]"><span className='flex items-center gap-3'>Explore Jobs <ArrowRight /></span></Button>
+            </Link>
+          }
         </div>
         <div className="bg-white text-gray-800">
           <div className="max-w-7xl py-8 flex flex-col lg:flex-row items-center justify-between">
@@ -120,9 +137,12 @@ const Home = () => {
                 <div>The right job is out there.</div>
               </p>
               <div className="mt-8 flex flex-col lg:flex-row items-center lg:items-start justify-center lg:justify-start">
-                <Link to={"/jobs"}>
-                  <Button className="py-8 rounded-lg bg-[#159788]"><span className='flex items-center gap-3'>Search Jobs <ArrowRight /></span></Button>
-                </Link>
+                {
+                  user && user.role === "jobSeeker" &&
+                  <Link to={"/jobs"}>
+                    <Button className="py-8 rounded-lg bg-[#159788]"><span className='flex items-center gap-3'>Search Jobs <ArrowRight /></span></Button>
+                  </Link>
+                }
               </div>
             </div>
           </div>

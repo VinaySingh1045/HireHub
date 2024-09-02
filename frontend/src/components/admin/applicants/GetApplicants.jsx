@@ -36,7 +36,7 @@ const GetApplicants = () => {
         <>
             <div className="min-h-screen bg-gray-50 py-12">
                 <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-8">
-                    <h1 className='font-bold text-xl my-5'>Applicants {AllApplicants?.application.length}</h1>
+                    <h1 className='font-bold text-xl my-5'>Applicants {AllApplicants?.application?.length}</h1>
                     <ApplicantTable />
 
 

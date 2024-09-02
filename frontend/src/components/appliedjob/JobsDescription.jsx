@@ -19,7 +19,7 @@ const JobsDescription = () => {
 
     const [isApplied, setIsApplied] = useState(isIntiallyApplied)
 
-
+    console.log("singleJob", singleJob)
     useEffect(() => {
         const fetchSingleJob = async () => {
             try {
@@ -46,7 +46,7 @@ const JobsDescription = () => {
 
     const handleApply = async () => {
 
-        if(!user){
+        if (!user) {
             toast.error("You need to login to apply for the job.");
             return;
         }
@@ -122,15 +122,15 @@ const JobsDescription = () => {
                                     </Badge>
                                 </div>
                             </div>
-                                        <Button
-                                            onClick={isApplied ? null : handleApply}
-                                            disabled={isApplied}
-                                            className={`px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-all duration-300 ${isApplied ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#159788] hover:bg-[#0f172ae6]'
-                                                }`}
-                                        >
-                                            {isApplied ? 'Already Applied' : 'Apply Now'}
-                                        </Button>
-                                    
+                            <Button
+                                onClick={isApplied ? null : handleApply}
+                                disabled={isApplied}
+                                className={`px-6 py-3 text-white font-semibold rounded-lg shadow-md transition-all duration-300 ${isApplied ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#159788] hover:bg-[#0f172ae6]'
+                                    }`}
+                            >
+                                {isApplied ? 'Already Applied' : 'Apply Now'}
+                            </Button>
+
                         </div>
                         <h2 className="text-2xl font-semibold text-gray-800 border-b-2 border-gray-300 pb-2 mb-4">
                             {singleJob.description}
@@ -155,6 +155,14 @@ const JobsDescription = () => {
                             <p>
                                 <span className="font-bold text-gray-900">Salary:</span>
                                 <span className="pl-4">{singleJob.salary} LPA</span>
+                            </p>
+                            <p>
+                                <span className="font-bold text-gray-900">Requirements:</span>
+                                <span className="pl-4">{singleJob.requirements}</span>
+                            </p>
+                            <p>
+                                <span className="font-bold text-gray-900">Job Type:</span>
+                                <span className="pl-4">{singleJob.jobType}</span>
                             </p>
                             <p>
                                 <span className="font-bold text-gray-900">Total Applicants:</span>

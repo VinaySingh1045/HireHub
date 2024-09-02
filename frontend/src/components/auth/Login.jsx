@@ -42,8 +42,16 @@ const Login = () => {
             if (res.data.success) {
                 const userInfo = res.data.data.user
                 dispatch(setUser(userInfo))
-                navigate("/")
+                // navigate("/")
                 toast.success(res.data.message)
+
+                // Check the user's role and navigate accordingly
+                if (userInfo && userInfo.role === "jobSeeker") {
+                    navigate("/");
+                } else if (userInfo && userInfo.role === "employer") {
+                    navigate("/admin/companines");
+                }
+
             }
 
             if (res.status === 200) {
@@ -61,7 +69,7 @@ const Login = () => {
             else if (error.response && error.response.status === 403) {
                 toast.error("User does not exist with current role.");
             }
-             else {
+            else {
                 toast.error("An error occurred. Please try again later.");
             }
         }
@@ -70,15 +78,15 @@ const Login = () => {
         }
     }
     useEffect(() => {
-      if(user){
-        navigate("/")
-      }
+        if (user) {
+            navigate("/")
+        }
     }, [])
-    
+
 
     return (
         <>
-       
+
             <div className="flex justify-center items-center min-h-[90vh] bg-gray-100">
                 <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md my-10">
                     <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>

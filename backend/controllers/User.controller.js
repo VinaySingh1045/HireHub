@@ -47,15 +47,46 @@ const userRegistration = AsyncHandler(async (req, res) => {
         throw new ApiError(409, "Email is already exists");
     }
 
-    // uploading the image
-
+    // Uploading the avatar image
     let avatarLocalPath;
-    if (req.file) {
-        avatarLocalPath = req.file.path;
+    if (req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
+        avatarLocalPath = req.files.avatar[0].path;
+    }
+    // console.log("req.files:", req.files);
+    // console.log("Avatar path:", avatarLocalPath);
+
+    const avatar = avatarLocalPath ? await uploadOnCloudniary(avatarLocalPath) : null;
+    console.log("Cloudinary response avatar: ", avatar);
+
+    // Uploading the resume
+    let resumeLocalPath;
+    if (req.files && Array.isArray(req.files.resume) && req.files.resume.length > 0) {
+        resumeLocalPath = req.files.resume[0].path;
     }
 
-    const avatar = await uploadOnCloudniary(avatarLocalPath);
-    // console.log("Cloudinary response: ", avatar);
+    const resume = resumeLocalPath ? await uploadOnCloudniary(resumeLocalPath) : null;
+    // console.log("Cloudinary response resume: ", resume);
+
+// ye jo nicche wala hai na isme shir ek file upload kar rahe the avatar but abhi hum do kar rahe hai
+
+    // // uploading the image
+
+    // let avatarLocalPath;
+    // if (req.file) {
+    //     avatarLocalPath = req.file.path;
+    // }
+
+    // const avatar = await uploadOnCloudniary(avatarLocalPath);
+    // console.log("Cloudinary response avatar: ", avatar);
+
+    // // uploading the resume 
+
+    // let resumeLocalPath;
+    // if (req.file) {
+    //     resumeLocalPath = req.file.path;
+    // }
+    // const resume = await uploadOnCloudniary(resumeLocalPath);
+    // console.log("response resume" , resume);
 
     // creating user 
     const user = await User.create({
@@ -65,6 +96,7 @@ const userRegistration = AsyncHandler(async (req, res) => {
         phoneno,
         role,
         avatar: avatar?.url || "",
+        resume: resume?.url || "",
     })
 
     // removing the sensetive field

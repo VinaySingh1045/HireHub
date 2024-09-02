@@ -24,7 +24,10 @@ const Signup = () => {
     const handleChange = (e) => {
         if (e.target.name === "avatar") {
             setuserData({ ...userData, [e.target.name]: e.target.files[0] })
-        } else {
+        } else if (e.target.name === "resume") {
+            setuserData({ ...userData, [e.target.name]: e.target.files[0] })
+        }
+        else {
             setuserData({ ...userData, [e.target.name]: e.target.value })
         }
     }
@@ -41,6 +44,9 @@ const Signup = () => {
         formData.append("phoneno", userData.phoneno);
         if (userData.avatar) {
             formData.append("avatar", userData.avatar)
+        }
+        if (userData.resume) {
+            formData.append("resume", userData.resume)
         }
         try {
             dispatch(setLoading(true))
@@ -64,11 +70,16 @@ const Signup = () => {
                     phoneno: "",
                     password: "",
                     role: "",
-                    avatar: ""
+                    avatar: "",
+                    resume: ""
                 });
             }
         } catch (error) {
+            if(error.response && error.response.status === 409) {
+                toast.error("Email already exists")
+            }
             console.log(error)
+            // toast.error(error.response.data);
         }
         finally {
             dispatch(setLoading(false))
@@ -76,10 +87,10 @@ const Signup = () => {
     }
 
     useEffect(() => {
-        if(user){
-          navigate("/")
+        if (user) {
+            navigate("/")
         }
-      }, [])
+    }, [])
 
     return (
         <>
@@ -130,6 +141,8 @@ const Signup = () => {
                                 name="phoneno"
                                 value={userData.phoneno}
                                 onChange={handleChange}
+                                pattern="[0-9]{10}"
+                                title="Phone number must be exactly 10 digits."
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 placeholder="Enter your phone number"
                                 required
@@ -146,6 +159,8 @@ const Signup = () => {
                                 name="password"
                                 value={userData.password}
                                 onChange={handleChange}
+                                pattern="(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%!]).{8,}"
+                                title="Password must have at Least one Capital letter and at Least eight letters and one special character"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 placeholder="Enter your password"
                                 required
@@ -193,6 +208,22 @@ const Signup = () => {
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
                             />
                         </div>
+                        {
+                            userData.role === "jobSeeker" &&
+                            <div className="mb-6">
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="resume">
+                                    Resume
+                                </label>
+                                <input
+                                    type="file"
+                                    id="resume"
+                                    name="resume"
+                                    accept="image/*"
+                                    onChange={handleChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline cursor-pointer"
+                                />
+                            </div>
+                        }
 
                         {
                             loading ? (<div className="mb-6">
@@ -210,7 +241,7 @@ const Signup = () => {
                                 </Button>
                             </div>)
                         }
-                        
+
                     </form>
 
                     <div className="text-center">

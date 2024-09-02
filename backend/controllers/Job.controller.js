@@ -3,6 +3,7 @@ import { ApiError } from "../utlis/ApiError.js";
 import { ApiResponse } from "../utlis/ApiResponse.js";
 // import { Company } from "../models/Company.model.js";
 import { Job } from "../models/Job.model.js";
+import { Company } from "../models/Company.model.js";
 
 const addJobs = AsyncHandler(async (req, res) => {
     const { title, description, requirements, salary, experienceLevel, location, jobType, positionsAvailable, company } = req.body
@@ -82,7 +83,13 @@ const getJobById = AsyncHandler(async (req, res) => {
     const jobId = req.params.id
 
     const job = await Job.findById(jobId).populate({
-        path: 'application'
+        path: 'application',
+
+        // ki ye huwa kaise ki job ke under populate likhne par application ka detail a raha hai  (company.application)
+        // populate: {
+        //     path: 'application',
+        // }
+
     })
 
     if (!job) {
@@ -151,7 +158,8 @@ const getAdminJobs = AsyncHandler(async (req, res) => {
 
     const jobs = await Job.find({ createdBy: adminId }).populate({
         path: 'company',
-        createdAt: -1
+        createdAt: -1,
+
     });
 
     if (!jobs) {
@@ -164,4 +172,49 @@ const getAdminJobs = AsyncHandler(async (req, res) => {
 
 })
 
-export { addJobs, getAllJobs, getJobById, getAdminJobs, updateJob }
+const addJobsByCompanyId = AsyncHandler(async (req, res) => {
+    const { title, description, requirements, salary, experienceLevel, location, jobType, positionsAvailable, company } = req.body
+
+    const companyId = req.params.id
+
+    const userId = req.user?._id
+
+    if (!userId) {
+        throw new ApiError(400, "User id not found")
+    }
+    // console.log(userId);
+
+    if (!title || !description || !requirements || !salary || !experienceLevel || !location || !jobType || !positionsAvailable ) {
+        throw new ApiError(400, "All fields are required");
+    }
+
+    // const companyVerfiy = await Company.findOne({ _id: companyId, createdBy: userId });
+    // if (!companyVerfiy) {
+    //     throw new ApiError(403, "You are not authorized to add jobs for this company");
+    // }
+
+    const existingJob = await Job.findOne({ title, company: companyId });
+    if (existingJob) {
+        throw new ApiError(400, "A job with this title already exists for the given company");
+    }
+
+    const job = await Job.create({
+        title,
+        description,
+        requirements: requirements.split(","),
+        salary,
+        experienceLevel,
+        location,
+        jobType,
+        positionsAvailable,
+        company: companyId,
+        createdBy: userId
+    })
+
+    return res.status(201).json(
+        new ApiResponse(201, job, "Job Added Successfull")
+    )
+
+})
+
+export { addJobs, getAllJobs, getJobById, getAdminJobs, updateJob, addJobsByCompanyId }

@@ -25,6 +25,8 @@ import GetApplicants from './components/admin/applicants/GetApplicants.jsx'
 import ProtectedRoute from './components/admin/ProtectedRoute.jsx'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
+import AppliedJobsTable from './components/appliedjob/AppliedJobsTable.jsx'
+import AddJobsByCompanyId from './components/admin/AdminJobs/AddJobsByCompanyId.jsx'
 
 
 const router = createBrowserRouter([
@@ -61,6 +63,10 @@ const router = createBrowserRouter([
         path: "/browse",
         element: <Browse />
       },
+      {
+        path: "/apply",
+        element: <AppliedJobsTable />
+      },
 
       // Admin interface
 
@@ -96,6 +102,13 @@ const router = createBrowserRouter([
         element:
           <ProtectedRoute>
             <AddJobs />
+          </ProtectedRoute>
+      },
+      {
+        path: "/admin/jobs/create/:id",
+        element:
+          <ProtectedRoute>
+            <AddJobsByCompanyId />
           </ProtectedRoute>
       },
       {

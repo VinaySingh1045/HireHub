@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'sonner'
 
-const useGetAllJobs = () => {
+const useGetAllJobss = () => {
     const dispatch = useDispatch();
 
     // const [keyword, setKeyword] = useState("")
@@ -15,7 +15,7 @@ const useGetAllJobs = () => {
 
         const fetchAllJobs = async () => {
             try {
-                let res = await axios.get(`${JOB_API_END_POINT}/getAllJobs?keyword=${searchJob}`
+                let res = await axios.get(`${JOB_API_END_POINT}/getAllJobs`
                     // {
                     //     withCredentials: true
                     // }
@@ -37,4 +37,4 @@ const useGetAllJobs = () => {
 
 }
 
-export default useGetAllJobs
+export default useGetAllJobss
