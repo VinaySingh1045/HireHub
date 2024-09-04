@@ -89,7 +89,12 @@ const Navbar = () => {
                                             <ul className=''>
                                                 <li className='mx-3 mb-5'><NavLink to={"/"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Home</NavLink></li>
                                                 <li className='mx-3 mb-5'><NavLink to={"/jobs"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Jobs</NavLink></li>
-                                                <li className='mx-3'><NavLink to={"/browse"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Browse</NavLink></li>
+                                                {/* <li className='mx-3'><NavLink to={"/browse"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Browse</NavLink></li>
+                                                 */}
+                                                {
+                                                    authUser && authUser.role === "jobSeeker" &&
+                                                    <li><NavLink to={"/apply"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Applied Jobs</NavLink></li>
+                                                }
                                             </ul>
                                         </>
                                     )}
@@ -111,14 +116,16 @@ const Navbar = () => {
                             <Popover>
                                 <PopoverTrigger>
                                     <Avatar>
-                                        <AvatarImage src={authUser.avatar} />
+                                        <AvatarImage src={authUser.avatar || "https://avatars.githubusercontent.com/u/124599?v=4"}
+                                            alt={authUser.fullName || "Default Avatar"}
+                                        />
                                     </Avatar>
                                 </PopoverTrigger>
                                 <PopoverContent>
                                     <div className='flex gap-4 items-center'>
                                         <Avatar>
-                                            <AvatarImage src={authUser.avatar}
-                                                alt="https://github.com/shadcn.png"
+                                            <AvatarImage src={authUser.avatar || "https://avatars.githubusercontent.com/u/124599?v=4"}
+                                                alt={authUser.fullName || "Default Avatar"}
                                             />
                                         </Avatar>
                                         <div>

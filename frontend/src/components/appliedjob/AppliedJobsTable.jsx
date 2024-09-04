@@ -31,7 +31,7 @@ const AppliedJobsTable = () => {
 
     return (
         <>
-            <div className=''>
+            <div className='max-w-6xl mx-auto'>
                 <div className="p-4">
                     <h1 className="font-bold text-2xl mb-4">Applied Jobs</h1>
                     <Table className="w-full bg-white shadow rounded-lg overflow-hidden">

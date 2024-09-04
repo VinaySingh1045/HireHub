@@ -21,7 +21,7 @@ const UpdateAvatar = ({ open, setOpen }) => {
     const dispatch = useDispatch();
 
     const [input, setInput] = useState({
-        avatar: user?.avatar || "",
+        avatar: user?.avatar || "https://avatars.githubusercontent.com/u/124599?v=4",
     })
 
     const handleChange = (e) => {
@@ -69,7 +69,7 @@ const UpdateAvatar = ({ open, setOpen }) => {
                     <div className="w-1/2 flex items-center justify-center border-r pr-6">
                         {user?.avatar ? (
                             <img
-                                src={user.avatar}
+                                src={user.avatar || "https://avatars.githubusercontent.com/u/124599?v=4"}
                                 alt="Profile Avatar"
                                 className="w-64 object-cover shadow-lg"
                             />

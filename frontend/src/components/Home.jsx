@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setSearchJob } from '@/features/jobSlice'
 import { toast } from 'sonner'
 import useGetAllJobss from '@/hooks/useGetAllJobss'
+import BlogCard from './blogs/BlogCard'
 
 const Home = () => {
 
@@ -21,7 +22,7 @@ const Home = () => {
     if (!user) {
       toast.error("Please Login To Search")
       return
-    } 
+    }
     else if (user && user.role === "employer") {
       // navigate("/admin/jobs")
       toast.error("You can't Search Jobs")
@@ -145,6 +146,14 @@ const Home = () => {
                 }
               </div>
             </div>
+          </div>
+        </div>
+        <div>
+          <div className='font-bold text-black text-5xl my-7 mx-auto text-center '>
+            Popular Blogs
+          </div>
+          <div className='flex flex-wrap gap-8'>
+            <BlogCard />
           </div>
         </div>
       </div>

@@ -42,7 +42,7 @@ const Profile = () => {
         <div className="flex items-center p-6">
           <img onClick={() => setopenAvatar(true)}
             className="h-20 w-20 rounded-full object-cover shadow-md cursor-pointer"
-            src={user.avatar}
+            src={user.avatar || "https://avatars.githubusercontent.com/u/124599?v=4"}
             alt="https://via.placeholder.com/150"
           />
           <div className="ml-7">
