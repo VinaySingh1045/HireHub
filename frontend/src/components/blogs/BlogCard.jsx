@@ -22,9 +22,9 @@ const BlogCard = () => {
       id: 2,
       date: 'sep 4, 2024',
       time: '2 min',
-      title: 'Press Kit - The Must Have List',
-      description: 'Create a blog post subtitle that summarizes your post in a few short, punchy sentences and…',
-      image: 'image2.jpg', 
+      title: 'JavaScript Frameworks vs Laravel – Which Should You Choose for Web Development',
+      description: 'When deciding between JavaScript frameworks and Laravel for web development, it’s essential to consider the type of project you are working on, the skill set of your team, and the specific requirements of your…',
+      image: 'https://www.freecodecamp.org/news/content/images/size/w2000/2024/06/Group-3148.png', 
     },
     {
       id: 3,

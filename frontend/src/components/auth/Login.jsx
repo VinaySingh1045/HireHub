@@ -69,6 +69,9 @@ const Login = () => {
             else if (error.response && error.response.status === 403) {
                 toast.error("User does not exist with current role.");
             }
+            else if (error.response &&  error.response.status === 400) {
+                toast.error("Email Doesn't exists.");
+            }
             else {
                 toast.error("An error occurred. Please try again later.");
             }
