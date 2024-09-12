@@ -19,11 +19,27 @@ const addJobs = AsyncHandler(async (req, res) => {
         throw new ApiError(400, "All fields are required");
     }
 
+    const existingCompany = await Company.findById(company)
+
+
+    // Check if the company exists and is approved by the admin
+
+    if (!existingCompany) {
+        throw new ApiError(404, "Company not found");
+    }
+
+    if (existingCompany.status !== "accepted") {
+        throw new ApiError(400, "Company is not approved yet. Jobs can only be added for approved companies.");
+    }
+
+    // Check if the job with the same title exists for the given company
+
     const existingJob = await Job.findOne({ title, company });
     if (existingJob) {
         throw new ApiError(400, "A job with this title already exists for the given company");
     }
 
+    // Create a new job and save it to the database
     const job = await Job.create({
         title,
         description,
@@ -34,7 +50,8 @@ const addJobs = AsyncHandler(async (req, res) => {
         jobType,
         positionsAvailable,
         company,
-        createdBy: userId
+        createdBy: userId,
+        status: "pending",
     })
 
     return res.status(201).json(

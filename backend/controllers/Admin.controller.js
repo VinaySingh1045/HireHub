@@ -2,6 +2,7 @@ import { AsyncHandler } from "../utlis/AsyncHandler.js";
 import { Company } from "../models/Company.model.js";
 import { ApiError } from "../utlis/ApiError.js";
 import { ApiResponse } from "../utlis/ApiResponse.js";
+import { Job } from "../models/Job.model.js";
 
 
 // Get all pending companies (admin only)
@@ -54,6 +55,56 @@ const updateCompanyStatus = AsyncHandler(async (req, res) => {
 
 })
 
-export {getPendingCompanies, updateCompanyStatus}
+// Get all pending Jobs (admin only)
+const getPendingJobs = AsyncHandler(async (req, res) => {
 
-// Get company by ID
+    if (req.user.role !== "admin") {
+        throw new ApiError(403, "Access denied. Only admins can access this resource.");
+    }
+
+    const pendingJobs = await Job.find({ status: "pending" })
+
+    if (!pendingJobs || pendingJobs.length === 0) {
+        throw new ApiError(404, "No pending Jobs found.");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200, pendingJobs, "Pending Jobs fetched successfully.")
+    )
+
+})
+
+// Accept or reject a Job requests by admin
+
+const updateJobStatus = AsyncHandler(async (req, res) => {
+
+    if (req.user.role !== "admin") {
+        throw new ApiError(403, "Access denied. Only admins can access this resource.");
+    }
+
+    const { status } = req.body;
+    const jobId = req.params.id;
+
+    if (!status) {
+        throw new ApiError(400, "Status is required.");
+    }
+
+    // Find the job by its ID
+    const job = await Job.findById(jobId);
+
+    if (!job) {
+        throw new ApiError(404, "Job not found");
+    }
+
+    job.status = status.toLowerCase();
+    await job.save();
+
+    return res.status(200).json(
+        new ApiResponse(200, job, `Job status updated successfully to ${status}.`)
+    )
+
+})
+
+export {getPendingCompanies, updateCompanyStatus, getPendingJobs, updateJobStatus}
+
+
