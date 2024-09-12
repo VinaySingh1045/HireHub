@@ -32,7 +32,7 @@ const generateAccessAndRefreshToken = async (userId) => {
         throw new ApiError(500, "Something went wrong while generating Refresh and Access Token ")
     }
 }
-
+ 
 const userRegistration = AsyncHandler(async (req, res) => {
     const { fullName, email, password, phoneno, role } = req.body;
 
@@ -356,7 +356,7 @@ const updateUserResume = AsyncHandler(async (req, res) => {
         )
 
 })
-
+ 
 export {
     userRegistration, userLogin, userLogout, changeUserPassword, getCurrentUser, updateUserAccount, updateUserAvatar, updateUserResume
 }

@@ -20,11 +20,12 @@ const companyRegistration = AsyncHandler(async (req, res) => {
 
     const company = await Company.create({
         companyName: companyName,
-        userId: req.user?._id
+        userId: req.user?._id,
+        status: "pending",
     })
 
     return res.status(201).json(
-        new ApiResponse(201, company, "Company register successfully")
+        new ApiResponse(201, company, "Company register successfully with pending status")
     )
 
 })

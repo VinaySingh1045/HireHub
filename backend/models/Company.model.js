@@ -19,6 +19,11 @@ const CompanySchema = new mongoose.Schema({
         type: String,  // url aayegi Cloudinary ki
         default: ""
     },
+    status: {
+        type: String,
+        enum: ["pending", "accepted", "rejected"],
+        default: "pending"
+    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

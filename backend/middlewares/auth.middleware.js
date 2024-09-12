@@ -27,3 +27,11 @@ export const verifyJWT = AsyncHandler(async (req, res, next) => {
     }
 
 })
+
+// Middleware to check if user is admin
+export const isAdmin = (req, res, next) => {
+    if (req.user?.role !== "admin") {
+        throw new ApiError(403, "Access denied. Admins only.");
+    }
+    next();
+};

@@ -10,7 +10,7 @@ app.use(cors({
 }))
 
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cookieParser());
 
@@ -19,10 +19,12 @@ import router from "../routes/User.route.js";
 import compRouter from "../routes/Company.route.js";
 import jobRouter from "../routes/Job.route.js";
 import appliRouter from "../routes/Application.route.js"
+import adminRouter from "../routes/Admin.route.js";
 
 app.use("/api/v1/users/", router)
 app.use("/api/v1/company/", compRouter)
 app.use("/api/v1/job/", jobRouter)
 app.use("/api/v1/application/", appliRouter)
+app.use("/api/v1/admin/", adminRouter)
 
 export default app 
