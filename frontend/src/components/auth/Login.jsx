@@ -51,6 +51,9 @@ const Login = () => {
                 } else if (userInfo && userInfo.role === "employer") {
                     navigate("/admin/companines");
                 }
+                else if (userInfo && userInfo.role === "admin"){
+                    navigate("/mainAdmin/dashboard");    
+                }
 
             }
 
@@ -136,6 +139,10 @@ const Login = () => {
                             <label className="inline-flex items-center ml-6 cursor-pointer">
                                 <input type="radio" name="role" value="employer" checked={userData.role === "employer"} onChange={handleChange} className="form-radio text-indigo-600 cursor-pointer" required />
                                 <span className="ml-2">Employer</span>
+                            </label>
+                            <label className="inline-flex items-center ml-6 cursor-pointer">
+                                <input type="radio" name="role" value="admin" checked={userData.role === "admin"} onChange={handleChange} className="form-radio text-indigo-600 cursor-pointer" required />
+                                <span className="ml-2">Admin</span>
                             </label>
                         </div>
 

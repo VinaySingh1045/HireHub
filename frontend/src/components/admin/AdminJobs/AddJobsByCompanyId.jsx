@@ -73,6 +73,13 @@ const AddJobsByCompanyId = () => {
             }
         } catch (error) {
             console.log(error)
+            if (error.response.status === 405) {
+                toast.error("Company is not approved yet. Jobs can only be added for approved companies.");
+                navigate("/admin/companines")
+            } else if (error.response.status === 403) {
+                toast.error("Your company has been rejected. You cannot add jobs.");
+                navigate("/admin/companines")
+            }
         }
 
 

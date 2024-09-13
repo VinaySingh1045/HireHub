@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Edit, MoreHorizontal, User } from 'lucide-react';
+import { toast } from 'sonner';
 
 const JobsTable = ({ filter }) => {
 
@@ -60,6 +61,7 @@ const JobsTable = ({ filter }) => {
                                 <TableHead>Company Name</TableHead>
                                 <TableHead>Title</TableHead>
                                 <TableHead>Date</TableHead>
+                                <TableHead>Status</TableHead>
                                 <TableHead>Action</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -79,6 +81,8 @@ const JobsTable = ({ filter }) => {
                                             <TableCell className="py-3">{job.title
                                             }</TableCell>
                                             <TableCell className="py-3">{job.createdAt.split("T")[0]}</TableCell>
+                                            <TableCell className="py-3">{job.status
+                                            }</TableCell>
                                             <TableCell className="py-3">
                                                 <Popover>
                                                     <PopoverTrigger>

@@ -54,6 +54,7 @@ const CompaniesTable = ({ filter }) => {
                                 <TableHead>Logo</TableHead>
                                 <TableHead>Name</TableHead>
                                 <TableHead>Date</TableHead>
+                                <TableHead>Status</TableHead>
                                 <TableHead>Action</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -75,6 +76,8 @@ const CompaniesTable = ({ filter }) => {
                                             <TableCell className="py-3">{company.companyName
                                             }</TableCell>
                                             <TableCell className="py-3">{company.createdAt.split("T")[0]}</TableCell>
+                                            <TableCell className="py-3">{company.status
+                                            }</TableCell>
                                             <TableCell className="py-3">
                                                 <Popover>
                                                     <PopoverTrigger>

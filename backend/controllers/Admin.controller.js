@@ -13,6 +13,8 @@ const getPendingCompanies = AsyncHandler(async (req, res) => {
     }
 
     const pendingCompanies = await Company.find({ status: "pending" })
+    .populate("userId")
+    .sort({ createdAt: -1 });
 
     if (!pendingCompanies || pendingCompanies.length === 0) {
         throw new ApiError(404, "No pending companies found.");
@@ -63,6 +65,9 @@ const getPendingJobs = AsyncHandler(async (req, res) => {
     }
 
     const pendingJobs = await Job.find({ status: "pending" })
+    .populate("company")
+    .populate("createdBy")
+    .sort({ createdAt: -1 });
 
     if (!pendingJobs || pendingJobs.length === 0) {
         throw new ApiError(404, "No pending Jobs found.");

@@ -38,6 +38,7 @@ const getCompany = AsyncHandler(async (req, res) => {
     // Use find when you want to retrieve all companies registered by a specific user.
 
     const companies = await Company.find({ userId })
+    .sort({ createdAt: -1 });
 
     if (companies.length === 0) {
         throw new ApiError(404, "Companies not found")

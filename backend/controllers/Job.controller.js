@@ -28,9 +28,14 @@ const addJobs = AsyncHandler(async (req, res) => {
         throw new ApiError(404, "Company not found");
     }
 
+    if (existingCompany.status === "rejected") {
+        throw new ApiError(403, "Your company has been rejected. You cannot add jobs.");
+    }
+
     if (existingCompany.status !== "accepted") {
         throw new ApiError(400, "Company is not approved yet. Jobs can only be added for approved companies.");
     }
+
 
     // Check if the job with the same title exists for the given company
 
@@ -65,11 +70,16 @@ const getAllJobs = AsyncHandler(async (req, res) => {
     const keyword = req.query.keyword || ""
 
     const query = {
-        $or: [
-            { title: { $regex: keyword, $options: "i" } },
-            { description: { $regex: keyword, $options: "i" } },
-        ]
-    }
+        $and: [
+            { status: "accepted" },
+            {
+                $or: [
+                    { title: { $regex: keyword, $options: "i" } },
+                    { description: { $regex: keyword, $options: "i" } },
+                ],
+            },
+        ],
+    };
 
     const jobs = await Job.find(query).populate({
         path: "company"
@@ -175,9 +185,9 @@ const getAdminJobs = AsyncHandler(async (req, res) => {
 
     const jobs = await Job.find({ createdBy: adminId }).populate({
         path: 'company',
-        createdAt: -1,
-
-    });
+        // createdAt: -1,
+    })
+    .sort({ createdAt: -1 });
 
     if (!jobs) {
         throw new ApiError(404, "No Jobs Found")
@@ -201,18 +211,29 @@ const addJobsByCompanyId = AsyncHandler(async (req, res) => {
     }
     // console.log(userId);
 
-    if (!title || !description || !requirements || !salary || !experienceLevel || !location || !jobType || !positionsAvailable ) {
-        throw new ApiError(400, "All fields are required");
+    if (!title || !description || !requirements || !salary || !experienceLevel || !location || !jobType || !positionsAvailable) {
+        throw new ApiError(401, "All fields are required");
     }
 
-    // const companyVerfiy = await Company.findOne({ _id: companyId, createdBy: userId });
-    // if (!companyVerfiy) {
-    //     throw new ApiError(403, "You are not authorized to add jobs for this company");
-    // }
+    const existingCompany = await Company.findById(companyId)
+
+    // Check if the company exists and is approved by the admin
+
+    if (!existingCompany) {
+        throw new ApiError(404, "Company not found");
+    }
+
+    if (existingCompany.status === "rejected") {
+        throw new ApiError(403, "Your company has been rejected. You cannot add jobs.");
+    }
+
+    if (existingCompany.status !== "accepted") {
+        throw new ApiError(405, "Company is not approved yet. Jobs can only be added for approved companies.");
+    }
 
     const existingJob = await Job.findOne({ title, company: companyId });
     if (existingJob) {
-        throw new ApiError(400, "A job with this title already exists for the given company");
+        throw new ApiError(402, "A job with this title already exists for the given company");
     }
 
     const job = await Job.create({

@@ -28,6 +28,9 @@ import { persistStore } from 'redux-persist'
 import AppliedJobsTable from './components/appliedjob/AppliedJobsTable.jsx'
 import AddJobsByCompanyId from './components/admin/AdminJobs/AddJobsByCompanyId.jsx'
 import BlogDetails from './components/blogs/BlogDetails.jsx'
+import Dashboard from './components/mainAdmin/Dashboard.jsx'
+import GetPendingCompanines from './components/mainAdmin/companies/GetPendingCompanines.jsx'
+import GetPendingJobs from './components/mainAdmin/jobs/GetPendingJobs.jsx'
 
 
 const router = createBrowserRouter([
@@ -73,7 +76,7 @@ const router = createBrowserRouter([
         element: <BlogDetails />
       },
 
-      // Admin interface
+      // Admin(Employer) interface
 
       {
         path: "/admin/companines",
@@ -130,6 +133,24 @@ const router = createBrowserRouter([
             <GetApplicants />
           </ProtectedRoute>
       },
+
+      // Main Admin routes
+
+      {
+        path: "/mainAdmin/dashboard",
+        element: <Dashboard/>
+      },
+
+      {
+        path: "/mainAdmin/dashboard/getPendingCompanies",
+        element: <GetPendingCompanines/>
+      },
+
+      {
+        path: "/mainAdmin/dashboard/getPendingJobs",
+        element: <GetPendingJobs/>
+      },
+
     ]
 
   },
