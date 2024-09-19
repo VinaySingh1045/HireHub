@@ -9,7 +9,7 @@ const useGetAllJobss = () => {
     const dispatch = useDispatch();
 
     // const [keyword, setKeyword] = useState("")
-    const { searchJob } = useSelector(state => state.job)
+    // const { searchJob } = useSelector(state => state.job)
 
     useEffect(() => {
 

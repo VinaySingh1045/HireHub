@@ -3,6 +3,7 @@ import { Company } from "../models/Company.model.js";
 import { ApiError } from "../utlis/ApiError.js";
 import { ApiResponse } from "../utlis/ApiResponse.js";
 import { Job } from "../models/Job.model.js";
+import { User } from "../models/User.model.js";
 
 
 // Get all pending companies (admin only)
@@ -13,15 +14,19 @@ const getPendingCompanies = AsyncHandler(async (req, res) => {
     }
 
     const pendingCompanies = await Company.find({ status: "pending" })
-    .populate("userId")
-    .sort({ createdAt: -1 });
+        .populate("userId")
+        .sort({ createdAt: -1 });
+
+    // Now count the number of pending companies
+
+    const pendingCompaniesCount = await Company.countDocuments({ status: "pending" })
 
     if (!pendingCompanies || pendingCompanies.length === 0) {
         throw new ApiError(404, "No pending companies found.");
     }
 
     return res.status(200).json(
-        new ApiResponse(200, pendingCompanies, "Pending companies fetched successfully.")
+        new ApiResponse(200, { pendingCompanies, pendingCompaniesCount }, "Pending companies fetched successfully.")
     )
 
 })
@@ -65,9 +70,9 @@ const getPendingJobs = AsyncHandler(async (req, res) => {
     }
 
     const pendingJobs = await Job.find({ status: "pending" })
-    .populate("company")
-    .populate("createdBy")
-    .sort({ createdAt: -1 });
+        .populate("company")
+        .populate("createdBy")
+        .sort({ createdAt: -1 });
 
     if (!pendingJobs || pendingJobs.length === 0) {
         throw new ApiError(404, "No pending Jobs found.");
@@ -110,6 +115,32 @@ const updateJobStatus = AsyncHandler(async (req, res) => {
 
 })
 
-export {getPendingCompanies, updateCompanyStatus, getPendingJobs, updateJobStatus}
+const getAllUsers = AsyncHandler(async (req, res) => {
+    if (req.user.role !== "admin") {
+        throw new ApiError(403, "Access denied. Only admins can access this resource.");
+    }
+    const users = await User.find();
+
+
+    return res.status(200).json(
+        new ApiResponse(200, users, "All users fetched successfully.")
+    )
+
+})
+
+const getAllEmployerUsers = AsyncHandler(async (req, res) => {
+    if (req.user.role !== "admin") {
+        throw new ApiError(403, "Access denied. Only admins can access this resource.");
+    }
+    const users = await User.find({ role: "employer" });
+
+
+    return res.status(200).json(
+        new ApiResponse(200, users, "Employer users fetched successfully.")
+    )
+
+})
+
+export { getPendingCompanies, updateCompanyStatus, getPendingJobs, updateJobStatus, getAllUsers, getAllEmployerUsers }
 
 
