@@ -36,7 +36,7 @@ const Jobs = () => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col lg:flex-row mx-auto mt-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex flex-col lg:flex-row mx-auto mt-8 px-4 sm:px-6 lg:px-8">
       {/* Left Filter Section */}
       <div className="w-full lg:w-1/4 bg-white shadow-lg z-10 mb-4 lg:mb-4 lg:mt-[0px] ">
         <FilterJobs />
