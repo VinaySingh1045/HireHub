@@ -48,7 +48,7 @@ const GetPendingJobs = () => {
                     <h1 className="font-bold text-2xl mb-4 ">See Pending Jobs</h1>
                     <Table className="w-full bg-white shadow rounded-lg overflow-hidden">
                         <TableCaption className="text-gray-500 mb-2">
-                            A list of Jobs that have been applied to your Company
+                            A list of Pending Jobs that have been applied to your Company
                         </TableCaption>
                         <TableHeader className="bg-gray-100">
                             <TableRow>
@@ -64,14 +64,7 @@ const GetPendingJobs = () => {
                         <TableBody>
                             {jobs?.length > 0 ? (
                                 jobs?.map((item) => {
-                                    // Debugging each field
-                                    // console.log('FullName:', item?.applicant?.fullName);
-                                    // console.log('Email:', item?.applicant?.email);
-                                    // console.log('Phone:', item?.applicant?.phoneno);
-                                    // console.log('Resume:', item?.applicant?.resume);
-                                    // console.log('CreatedAt:', item?.createdAt);
-                                    // console.log('ID:', item._id);
-
+                                    
                                     return (
                                         <TableRow key={item._id} className="hover:bg-gray-50 cursor-pointer">
                                             <TableCell className="py-3">

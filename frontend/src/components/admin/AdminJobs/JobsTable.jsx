@@ -69,7 +69,7 @@ const JobsTable = ({ filter }) => {
                             {
                                 filteredJobs.length === 0 ? (
                                     <TableRow>
-                                        <TableCell colSpan="4" className="text-center py-3">No Jobs Available</TableCell>
+                                        <TableCell colSpan="4" className="text-center py-3">Register Your Jobs</TableCell>
                                     </TableRow>
                                 ) :
                                     filteredJobs.map((job) => (

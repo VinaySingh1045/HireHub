@@ -119,7 +119,8 @@ const getAllUsers = AsyncHandler(async (req, res) => {
     if (req.user.role !== "admin") {
         throw new ApiError(403, "Access denied. Only admins can access this resource.");
     }
-    const users = await User.find();
+    const users = await User.find()
+    .sort({ createdAt: -1 });
 
 
     return res.status(200).json(
@@ -132,7 +133,8 @@ const getAllEmployerUsers = AsyncHandler(async (req, res) => {
     if (req.user.role !== "admin") {
         throw new ApiError(403, "Access denied. Only admins can access this resource.");
     }
-    const users = await User.find({ role: "employer" });
+    const users = await User.find({ role: "employer" })
+    .sort({ createdAt: -1 });
 
 
     return res.status(200).json(
@@ -141,6 +143,20 @@ const getAllEmployerUsers = AsyncHandler(async (req, res) => {
 
 })
 
-export { getPendingCompanies, updateCompanyStatus, getPendingJobs, updateJobStatus, getAllUsers, getAllEmployerUsers }
+const getAllJobSeekerUsers = AsyncHandler(async (req, res) => {
+    if (req.user.role !== "admin") {
+        throw new ApiError(403, "Access denied. Only admins can access this resource.");
+    }
+    const users = await User.find({ role: "jobSeeker" })
+    .sort({ createdAt: -1 });
+
+
+    return res.status(200).json(
+        new ApiResponse(200, users, "JobSeeker users fetched successfully.")
+    )
+
+})
+
+export { getPendingCompanies, updateCompanyStatus, getPendingJobs, updateJobStatus, getAllUsers, getAllEmployerUsers, getAllJobSeekerUsers }
 
 

@@ -23,7 +23,7 @@ const CompaniesTable = ({ filter }) => {
                     withCredentials: true
                 });
                 // console.log("API Response:", res.data);
-                console.log("Companies Data:", res.data.data);
+                // console.log("Companies Data:", res.data.data);
                 if (res.data.success) {
                     setCompanies(res.data.data);
                     // toast.success(res.data.message);
@@ -62,7 +62,7 @@ const CompaniesTable = ({ filter }) => {
                             {
                                 filteredCompanies.length === 0 ? (
                                     <TableRow>
-                                        <TableCell colSpan="4" className="text-center py-3">No Companies Available</TableCell>
+                                        <TableCell colSpan="4" className="text-center ">Register Your Companies </TableCell>
                                     </TableRow>
                                 ) :
                                     filteredCompanies.map((company) => (

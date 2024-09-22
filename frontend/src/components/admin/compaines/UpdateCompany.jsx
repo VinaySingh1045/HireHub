@@ -83,6 +83,7 @@ const UpdateCompany = () => {
                                 value={input.companyName}
                                 onChange={changeEventHandler}
                                 className="mt-2"
+                                required
                             />
                         </div>
                         <div>
@@ -93,6 +94,7 @@ const UpdateCompany = () => {
                                 value={input.description}
                                 onChange={changeEventHandler}
                                 className="mt-2"
+                                required
                             />
                         </div>
                         <div>
@@ -103,6 +105,7 @@ const UpdateCompany = () => {
                                 value={input.websiteUrl}
                                 onChange={changeEventHandler}
                                 className="mt-2"
+                                required
                             />
                         </div>
                         <div>
@@ -113,6 +116,7 @@ const UpdateCompany = () => {
                                 value={input.location}
                                 onChange={changeEventHandler}
                                 className="mt-2"
+                                required
                             />
                         </div>
                         <div className="sm:col-span-2">
@@ -124,11 +128,12 @@ const UpdateCompany = () => {
                                 accept="image/*"
                                 onChange={changeEventHandler}
                                 className="mt-2"
+                                required
                             />
                         </div>
                     </div>
                     {loading ? (
-                        <Button className="w-full bg-bg-[#159788] text-white py-3 rounded-lg flex justify-center items-center">
+                        <Button className="w-full bg-[#159788] text-white py-3 rounded-lg flex justify-center items-center">
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait...
                         </Button>
                     ) : (

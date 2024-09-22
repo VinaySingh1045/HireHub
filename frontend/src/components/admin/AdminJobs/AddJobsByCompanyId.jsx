@@ -58,17 +58,6 @@ const AddJobsByCompanyId = () => {
                 setFormData(res.data.data)
                 toast.success(res.data.message);
                 setLoading(false);
-                // setFormData({
-                //     title: '',
-                //     requirements: '',
-                //     description: '',
-                //     companyId: '',
-                //     salary: '',
-                //     location: '',
-                //     jobType: '',
-                //     experienceLevel: '',
-                //     positionsAvailable: '',
-                // })
                 navigate("/admin/jobs")
             }
         } catch (error) {
@@ -81,8 +70,6 @@ const AddJobsByCompanyId = () => {
                 navigate("/admin/companines")
             }
         }
-
-
 
     }
 

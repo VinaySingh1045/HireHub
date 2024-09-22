@@ -6,38 +6,42 @@ import useGetPendingCompanies from '@/hooks/useGetPendingCompanies'
 import useGetPendingJobs from '@/hooks/useGetPendingJobs'
 import useGetAllUsers from '@/hooks/useGetAllUsers'
 import useGetAllEmployer from '@/hooks/useGetAllEmployer'
+import useGetAllJobSeeker from '@/hooks/useGetAllJobSeeker'
 
 const Dashboard = () => {
 
     const { companies } = useGetPendingCompanies();
     const { jobs } = useGetPendingJobs();
     const { users } = useGetAllUsers();
+    const { jobSeekerUsers } = useGetAllJobSeeker();
     const { empusers } = useGetAllEmployer();
 
     return (
         <>
-            <div className='min-h-[90vh] bg-white'>
+            <div className='min-h-[90vh] bg-gray-200'>
                 <div className='text-center mx-auto text-3xl'>
                     <h1 className=' font-bold'>Dashboard</h1>
                     <p className='text-xl m-1'>Welcome to the admin dashboard.</p>
                 </div>
                 <hr className='h-2 border-gray-400' />
 
-                <div className='grid grid-cols-2 w-[50%] mx-auto shadow-lg bg-gray-200'>
+                <div className='grid grid-cols-2 w-[50%] mx-auto shadow-lg '>
                     <div className='mx-4 my-4 w-72 bg-white shadow-lg h-60 flex flex-col justify-evenly'>
                         {/* Center Content */}
                         <div className='flex flex-col items-center justify-center'>
                             <div className='text-center'>
                                 <div className='flex justify-center items-center '><Users2Icon className='text-blue-500 w-10 h-10 mb-2' /></div>
-                                <p className='text-lg mt-1'>Total Registered Users</p>
-                                <p className='mt-1'>{users?.length}</p>
+                                <p className='text-lg mt-1'>Total Registered JobSeeker Users</p>
+                                <p className='mt-1'>{jobSeekerUsers?.length}</p>
                             </div>
                         </div>
 
                         {/* Button at the Bottom */}
-                        <div className='p-4'>
-                            <Button className='w-full bg-[#159788]'>See Details</Button>
-                        </div>
+                        <Link to={"/mainAdmin/dashboard/getAllJobSeekerUsers"}>
+                            <div className='p-4'>
+                                <Button className='w-full bg-[#159788] '>See Details</Button>
+                            </div>
+                        </Link>
                     </div>
 
                     <div className='mx-4 my-4 w-72 bg-white shadow-lg h-60 flex flex-col justify-evenly'>
@@ -51,9 +55,11 @@ const Dashboard = () => {
                         </div>
 
                         {/* Button at the Bottom */}
-                        <div className='p-4'>
-                            <Button className='w-full bg-[#159788]'>See Details</Button>
-                        </div>
+                        <Link to={"/mainAdmin/dashboard/getAllEmployers"}>
+                            <div className='p-4'>
+                                <Button className='w-full bg-[#159788]'>See Details</Button>
+                            </div>
+                        </Link>
                     </div>
                     <div className='mx-4 my-4 w-72 bg-white shadow-lg h-60 flex flex-col justify-evenly'>
                         {/* Center Content */}

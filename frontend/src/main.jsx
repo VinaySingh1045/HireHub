@@ -31,6 +31,9 @@ import BlogDetails from './components/blogs/BlogDetails.jsx'
 import Dashboard from './components/mainAdmin/Dashboard.jsx'
 import GetPendingCompanines from './components/mainAdmin/companies/GetPendingCompanines.jsx'
 import GetPendingJobs from './components/mainAdmin/jobs/GetPendingJobs.jsx'
+import GetAllUsers from './components/mainAdmin/users/GetAllUsers.jsx'
+import GetAllEmployer from './components/mainAdmin/users/GetAllEmployer.jsx'
+import GetAllJobSeekerUsers from './components/mainAdmin/users/GetAllJobSeekerUsers.jsx'
 
 
 const router = createBrowserRouter([
@@ -149,6 +152,18 @@ const router = createBrowserRouter([
       {
         path: "/mainAdmin/dashboard/getPendingJobs",
         element: <GetPendingJobs/>
+      },
+      {
+        path: "/mainAdmin/dashboard/getAllUsers",
+        element: <GetAllUsers/>
+      },
+      {
+        path: "/mainAdmin/dashboard/getAllEmployers",
+        element: <GetAllEmployer/>
+      },
+      {
+        path: "/mainAdmin/dashboard/getAllJobSeekerUsers",
+        element: <GetAllJobSeekerUsers/>
       },
 
     ]
