@@ -14,7 +14,7 @@ const Profile = () => {
   const [open, setOpen] = useState(false);
   const [openResume, setopenResume] = useState(false);
   const [openAvatar, setopenAvatar] = useState(false);
-  console.log(user)
+  // console.log(user)
 
   return (
     <>

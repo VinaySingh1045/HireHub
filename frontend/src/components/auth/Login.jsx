@@ -37,7 +37,7 @@ const Login = () => {
                 withCredentials: true
             })
 
-            console.log("Login Response:", res.data.data.user);
+            // console.log("Login Response:", res.data.data.user);
 
             if (res.data.success) {
                 const userInfo = res.data.data.user
@@ -66,6 +66,7 @@ const Login = () => {
             }
         } catch (error) {
             console.log(error)
+
             if (error.response && error.response.status === 401) {
                 toast.error("Incorrect email or password. Please try again.");
             }
@@ -78,11 +79,13 @@ const Login = () => {
             else {
                 toast.error("An error occurred. Please try again later.");
             }
+
         }
         finally {
             dispatch(setLoading(false))
         }
     }
+
     useEffect(() => {
         if (user) {
             navigate("/")

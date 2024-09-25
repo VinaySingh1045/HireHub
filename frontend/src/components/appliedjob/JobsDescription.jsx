@@ -19,7 +19,7 @@ const JobsDescription = () => {
 
     const [isApplied, setIsApplied] = useState(isIntiallyApplied)
 
-    console.log("singleJob", singleJob)
+    // console.log("singleJob", singleJob)
     useEffect(() => {
         const fetchSingleJob = async () => {
             try {
@@ -133,12 +133,16 @@ const JobsDescription = () => {
 
                         </div>
                         <h2 className="text-2xl font-semibold text-gray-800 border-b-2 border-gray-300 pb-2 mb-4">
-                            {singleJob.description}
+                            {singleJob.company.description}
                         </h2>
                         <div className="text-lg text-gray-700 space-y-3">
                             <p>
                                 <span className="font-bold text-gray-900">Role:</span>
                                 <span className="pl-4">{singleJob.title}</span>
+                            </p>
+                            <p>
+                                <span className="font-bold text-gray-900">Company Name:</span>
+                                <span className="pl-4">{singleJob.company.companyName}</span>
                             </p>
                             <p>
                                 <span className="font-bold text-gray-900">Location:</span>

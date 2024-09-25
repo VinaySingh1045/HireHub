@@ -29,7 +29,7 @@ const JobsTable = ({ filter }) => {
                     withCredentials: true
                 });
                 // console.log("API Response:", res.data);
-                console.log("Jobs Data:", res.data.data);
+                // console.log("Jobs Data:", res.data.data);
                 if (res.data.success) {
                     setJobs(res.data.data);
                     // toast.success(res.data.message);

@@ -20,7 +20,7 @@ const useGetAllJobs = () => {
                     //     withCredentials: true
                     // }
                 )
-                console.log(res.data.data)
+                // console.log(res.data.data)
                 if (res.data.success) {
                     dispatch(setAllJobs(res.data.data))
                     // toast.success(res.data.success)

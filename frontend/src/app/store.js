@@ -16,7 +16,6 @@ import {
 import companySlice from "@/features/companySlice";
 import applicantSlice from "@/features/applicantSlice";
 
-
 const persistConfig = {
     key: 'root',
     version: 1,

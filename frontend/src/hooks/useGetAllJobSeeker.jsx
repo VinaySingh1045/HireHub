@@ -13,7 +13,7 @@ const useGetAllJobSeeker = () => {
                 const res = await axios.get(`${ADMIN_API_END_POINT}/getAllJobSeekerUsers`,
                     { withCredentials: true }
                 )
-                console.log(res.data.data)
+                // console.log(res.data.data)
                 setEmpUsers(res.data.data)
             } catch (error) {
                 console.log(error)

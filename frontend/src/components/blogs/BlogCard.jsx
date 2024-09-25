@@ -12,15 +12,15 @@ const BlogCard = () => {
   const blogs = [
     {
       id: 1,
-      date: 'sep 4, 2024',
+      date: 'may 4, 2024',
       time: '1 min',
-      title: 'How to Get Testimonials to Grow Your Business',
-      description: 'Create a blog post subtitle that summarizes your post in a few short, punchy sentences and…',
-      image: 'https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/d2cbaefd1df233633e7a642d9f00ac24?_a=AQAEuiZ',
+      title: 'React Mindset: How New React Developers Should Think',
+      description: 'React, a prominent JavaScript library for building user interfaces, enhances front-end development through reusable components and efficient UI management  New developers should adopt key principles such as thinking in components, embracing declarative…',
+      image: '/mindSet.avif',
     },
     {
       id: 2,
-      date: 'sep 4, 2024',
+      date: 'June 15, 2024',
       time: '2 min',
       title: 'JavaScript Frameworks vs Laravel – Which Should You Choose for Web Development',
       description: 'When deciding between JavaScript frameworks and Laravel for web development, it’s essential to consider the type of project you are working on, the skill set of your team, and the specific requirements of your…',
@@ -28,28 +28,13 @@ const BlogCard = () => {
     },
     {
       id: 3,
-      date: 'sep 4, 2024',
-      time: '3 min',
-      title: 'Making Friends With Numbers - Data ',
-      description: 'Create a blog post subtitle that summarizes your post in a few short, punchy sentences and…',
-      image: 'image3.jpg', 
+      date: 'sep 30, 2024',
+      time: '10 min',
+      title: 'MERN stack for Web Development ',
+      description: 'MERN is a full-stack web development framework that includes MongoDB, Express.js, React.js, and Node.js. It allows developers to build dynamic web applications using JavaScript for both the client and server sides. MongoDB serves as the database, while Express.js handles the server-side logic. React.js creates interactive user interfaces, and …',
+      image: '/mern.webp', 
     },
-    {
-      id: 4,
-      date: 'sep 4, 2024',
-      time: '3 min',
-      title: 'Making Friends With Numbers - Data ',
-      description: 'Create a blog post subtitle that summarizes your post in a few short, punchy sentences and…',
-      image: 'image3.jpg', 
-    },
-    {
-      id: 5,
-      date: 'sep 4, 2024',
-      time: '3 min',
-      title: 'Making Friends With Numbers - Data ',
-      description: 'Create a blog post subtitle that summarizes your post in a few short, punchy sentences and…',
-      image: 'image3.jpg', 
-    },
+    
   ];
 
   return (

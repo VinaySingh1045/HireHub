@@ -50,11 +50,18 @@ const Navbar = () => {
                                     </div>
                                 </Link>
                                 ) :
+                                authUser && authUser.role === "employer" ?
                                 <Link to={"/admin/companines"}>
                                     <div className='font-bold text-3xl cursor-pointer'>
                                         <span className='text-4xl'>👜</span> Hire<span className='text-[#159788]'>Hub</span>
                                     </div>
                                 </Link>
+                                :
+                                <Link to={"/"}>
+                                <div className='font-bold text-3xl cursor-pointer'>
+                                    <span className='text-4xl'>👜</span> Hire<span className='text-[#159788]'>Hub</span>
+                                </div>
+                            </Link>
                     }
                     <div className='flex items-center gap-5'>
                         {/* Desktop Menu */}

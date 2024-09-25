@@ -3,7 +3,6 @@ import JobsCard from './jobs/JobsCard'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from './ui/button'
 import { ArrowRight, Search } from 'lucide-react'
-import useGetAllJobs from '@/hooks/useGetAllJobs'
 import LatestJobCard from './jobs/LatestJobCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSearchJob } from '@/features/jobSlice'
@@ -17,6 +16,7 @@ const Home = () => {
   const { user } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
 
   const handleSearchJob = () => {
     if (!user) {
@@ -67,7 +67,7 @@ const Home = () => {
                       <path d="M15.9998 5.5L15.9004 5.19094C15.4054 3.65089 15.1579 2.88087 14.5686 2.44043C13.9794 2 13.1967 2 11.6313 2H11.3682C9.8028 2 9.02011 2 8.43087 2.44043C7.84162 2.88087 7.59411 3.65089 7.0991 5.19094L6.99976 5.5" stroke="currentColor" strokeWidth="1.5" />
                     </svg>
                   </div>
-                  <div className="text-2xl font-bold">25,850</div>
+                  <div className="text-2xl font-bold">20,000+</div>
                 </div>
                 <div className="text-gray-300 ml-14">Jobs</div>
               </div>
@@ -81,7 +81,7 @@ const Home = () => {
                       <path d="M15.4999 7.5C15.4999 9.433 13.9329 11 11.9999 11C10.0669 11 8.49988 9.433 8.49988 7.5C8.49988 5.567 10.0669 4 11.9999 4C13.9329 4 15.4999 5.567 15.4999 7.5Z" stroke="currentColor" strokeWidth="1.5" />
                     </svg>
                   </div>
-                  <div className="text-2xl font-bold">10,250</div>
+                  <div className="text-2xl font-bold">50,000+</div>
                 </div>
                 <div className="text-gray-300 ml-14">Candidates</div>
               </div>
@@ -92,7 +92,7 @@ const Home = () => {
                       <path d="M8 8C8 5.79086 9.79086 4 12 4C14.2091 4 16 5.79086 16 8M8 8C8 10.2091 9.79086 12 12 12C14.2091 12 16 10.2091 16 8M8 8H4M16 8H20M15 16H9M17 16H19C20.1046 16 21 16.8954 21 18V18.8C21 19.9201 21 20.4802 20.782 20.908C20.5903 21.2843 20.2843 21.5903 19.908 21.782C19.4802 22 18.9201 22 17.8 22H6.2C5.07989 22 4.51984 22 4.09202 21.782C3.71569 21.5903 3.40973 21.2843 3.21799 20.908C3 20.4802 3 19.9201 3 18.8V18C3 16.8954 3.89543 16 5 16H7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                     </svg>
                   </div>
-                  <div className="text-2xl font-bold">12,150</div>
+                  <div className="text-2xl font-bold">9,000+</div>
                 </div>
                 <div className="text-gray-300 ml-14">Employers</div>
               </div>

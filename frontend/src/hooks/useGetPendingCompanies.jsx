@@ -13,7 +13,7 @@ const useGetPendingCompanies = () => {
                 let res = await axios.get(`${ADMIN_API_END_POINT}/getPendingCompany`,
                     { withCredentials: true }
                 )
-                console.log(res.data.data)
+                // console.log(res.data.data)
                 setCompanies(res.data.data);
             } catch (error) {
                 console.log(error);

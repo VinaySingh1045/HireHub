@@ -17,7 +17,7 @@ const AppliedJobsTable = () => {
                 const res = await axios.get(`${APPLICATION_API_END_POINT}/getAppliedJob`, {
                     withCredentials: true
                 })
-                console.log("Job: ", res.data.data)
+                // console.log("Job: ", res.data.data)
                 if (res.data.success) {
                     setApplied(res.data.data)
                 }

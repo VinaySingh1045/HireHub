@@ -13,13 +13,13 @@ const generateAccessAndRefreshToken = async (userId) => {
         }
 
         // Add logging
-        console.log('User found:', user);
+        // console.log('User found:', user);
 
         const accessToken = user.generateAccessToken();
-        console.log('Access Token generated:', accessToken);
+        // console.log('Access Token generated:', accessToken);
 
         const refreshToken = user.generateRefreshToken();
-        console.log('Refresh Token generated:', refreshToken);
+        // console.log('Refresh Token generated:', refreshToken);
 
         user.refreshToken = refreshToken
 

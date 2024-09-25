@@ -61,9 +61,11 @@ const UserSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-
+// Pre-save hook to hash password if modified
 UserSchema.pre("save", async function (next) {
+    // Check if password is modified
     if (this.isModified("password")) {
+        // Hash the password using bcrypt with a salt factor of 10
         this.password = await bcrypt.hash(this.password, 10);
         next()
     }
@@ -72,10 +74,12 @@ UserSchema.pre("save", async function (next) {
     }
 })
 
+// Method to check if the given password matches the hashed password
 UserSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password);
 }
 
+// Method to generate an access token using JWT
 UserSchema.methods.generateAccessToken = function () {
     return jwt.sign(
         {
@@ -88,6 +92,7 @@ UserSchema.methods.generateAccessToken = function () {
     )
 }
 
+// Method to generate an refresh token using JWT
 UserSchema.methods.generateRefreshToken = function () {
     return jwt.sign(
         {

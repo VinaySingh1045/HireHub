@@ -111,12 +111,8 @@ const getJobById = AsyncHandler(async (req, res) => {
 
     const job = await Job.findById(jobId).populate({
         path: 'application',
-
-        // ki ye huwa kaise ki job ke under populate likhne par application ka detail a raha hai  (company.application)
-        // populate: {
-        //     path: 'application',
-        // }
-
+    }).populate({
+        path: "company"
     })
 
     if (!job) {

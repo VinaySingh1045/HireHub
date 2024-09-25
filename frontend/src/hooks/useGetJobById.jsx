@@ -10,7 +10,7 @@ const useGetJobById = (jobId) => {
         const fetchSingleJob = async () => {
             try {
                 const res = await axios.get(`${JOB_API_END_POINT}/getJobById/${jobId}`, { withCredentials: true });
-                console.log(res.data.data);
+                // console.log(res.data.data);
                 if (res.data.success) {
                     dispatch(setSingleJob(res.data.data));
                 }

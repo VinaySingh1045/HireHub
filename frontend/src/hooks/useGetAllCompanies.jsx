@@ -19,7 +19,7 @@ const useGetAllCompanies = () => {
                         withCredentials: true
                     }
                 )
-                console.log(res.data.data);
+                // console.log(res.data.data);
 
                 if(res.data.success){
                     setCompanies(res.data.data)

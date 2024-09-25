@@ -3,8 +3,11 @@
 @tailwind utilities;
 
 .bg-hero {
-  background-image: url('https://jthemes.com/themes/wp/jobbox/wp-content/uploads/2023/03/banner.png ');
+  background-image: url("/banner.png");
 }
+/* .bg-hero {
+  background-image: url('https://jthemes.com/themes/wp/jobbox/wp-content/uploads/2023/03/banner.png ');
+} */
 
   /* background-image: url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0zMDktYWV3LTAxM18xXzEuanBn.jpg');
    */

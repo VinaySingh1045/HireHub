@@ -45,6 +45,7 @@ const ApplicantTable = () => {
                                 <TableHead>Email</TableHead>
                                 <TableHead>Contact</TableHead>
                                 <TableHead>Resume</TableHead>
+                                <TableHead>Status</TableHead>
                                 <TableHead>Date</TableHead>
                                 <TableHead>Actions</TableHead>
                             </TableRow>
@@ -86,6 +87,9 @@ const ApplicantTable = () => {
                                                 ) : (
                                                     <span className="text-gray-500">Not Submitted</span>
                                                 )}
+                                            </TableCell>
+                                            <TableCell className="py-3">
+                                                {item?.status || "N/A"}
                                             </TableCell>
                                             <TableCell className="py-3">
                                                 {item?.createdAt?.split('T')[0]}

@@ -12,7 +12,7 @@ const useGetPendingJobs = () => {
                 let res = await axios.get(`${ADMIN_API_END_POINT}/getPendingJob`,
                     { withCredentials: true }
                 )
-                console.log(res.data.data)
+                // console.log(res.data.data)
                 setJobs(res.data.data);
             } catch (error) {
                 console.log(error);

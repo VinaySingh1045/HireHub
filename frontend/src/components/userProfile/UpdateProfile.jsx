@@ -19,7 +19,7 @@ const UpdateProfile = ({ open, setOpen }) => {
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch();
 
-    console.log(user)
+    // console.log(user)
 
     const [input, setInput] = useState({
         fullName: user?.fullName || "",
@@ -63,7 +63,7 @@ const UpdateProfile = ({ open, setOpen }) => {
                 }
             )
             // Log the full response data for debugging
-            console.log("Full Response Data:", res.data.data);
+            // console.log("Full Response Data:", res.data.data);
 
             if (res.data.success) {
                 dispatch(setUser(res.data.data));

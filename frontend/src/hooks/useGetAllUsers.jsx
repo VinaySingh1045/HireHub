@@ -14,7 +14,7 @@ const useGetAllUsers = () => {
                 const res = await axios.get(`${ADMIN_API_END_POINT}/getAllUsers`,
                     { withCredentials: true }
                 )
-                console.log(res.data.data)
+                // console.log(res.data.data)
                 setUsers(res.data.data)
             } catch (error) {
                 console.log(error)

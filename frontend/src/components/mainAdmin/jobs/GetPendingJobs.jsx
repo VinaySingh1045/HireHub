@@ -16,7 +16,7 @@ const GetPendingJobs = () => {
                 let res = await axios.get(`${ADMIN_API_END_POINT}/getPendingJob`,
                     { withCredentials: true }
                 )
-                console.log(res.data.data)
+                // console.log(res.data.data)
                 setJobs(res.data.data);
             } catch (error) {
                 console.log(error);
@@ -30,7 +30,7 @@ const GetPendingJobs = () => {
             const res = await axios.put(`${ADMIN_API_END_POINT}/status/${id}/updateJobStatus`, { status },
                 { withCredentials: true }
             )
-            console.log(res.data.data);
+            // console.log(res.data.data);
             if (res.data.success) {
                 toast.success(res.data.message);
                 setJobs((prevJobs) => prevJobs.filter((job) => job._id !== id));
@@ -57,6 +57,7 @@ const GetPendingJobs = () => {
                                 <TableHead>Location</TableHead>
                                 <TableHead>Title</TableHead>
                                 <TableHead>Requriements</TableHead>
+                                <TableHead>Salary</TableHead>
                                 <TableHead>Date</TableHead>
                                 <TableHead>Actions</TableHead>
                             </TableRow>
@@ -81,6 +82,9 @@ const GetPendingJobs = () => {
                                             </TableCell>
                                             <TableCell className="py-3 ">
                                                     { item?.requirements}     
+                                            </TableCell>
+                                            <TableCell className="py-3 ">
+                                                    { item?.salary} Lpa     
                                             </TableCell>
                                             <TableCell className="py-3">
                                                 {item?.createdAt?.split('T')[0]}
