@@ -44,7 +44,7 @@ Adopting the React mindset means embracing components, state management, unidire
             author: 'LalBabu Dubey',
             title: 'JavaScript Frameworks vs Laravel – Which Should You Choose for Web Development',
             subtitle: 'Comparing Front-End Dynamism with Robust Backend Solutions for Modern Web Applications.',
-            image: 'https://www.freecodecamp.org/news/content/images/size/w2000/2024/06/Group-3148.png',
+            image: '/Group-3148.png',
             content: `
                 When deciding between JavaScript frameworks and Laravel for web development, it’s essential to consider the type of project you are working on, the skill set of your team, and the specific requirements of your application. Here's a comparison to help you make an informed decision:
                 

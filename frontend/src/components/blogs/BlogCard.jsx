@@ -24,7 +24,7 @@ const BlogCard = () => {
       time: '2 min',
       title: 'JavaScript Frameworks vs Laravel – Which Should You Choose for Web Development',
       description: 'When deciding between JavaScript frameworks and Laravel for web development, it’s essential to consider the type of project you are working on, the skill set of your team, and the specific requirements of your…',
-      image: 'https://www.freecodecamp.org/news/content/images/size/w2000/2024/06/Group-3148.png', 
+      image: '/Group-3148.png', 
     },
     {
       id: 3,
