@@ -33,7 +33,8 @@ const Navbar = () => {
 
     return (
         <>
-            <div className='bg-[#dcdcdc] sticky top-0 z-50 shadow-lg'>
+        {/* bg-[#dcdcdc] */}
+            <div className=' bg-[#dcdcdc] sticky top-0 z-50 shadow-lg'>
                 <div className='flex items-center justify-between mx-auto max-w-7xl h-16'>
                     {
                         authUser && authUser.role === "jobSeeker" ?
@@ -51,17 +52,17 @@ const Navbar = () => {
                                 </Link>
                                 ) :
                                 authUser && authUser.role === "employer" ?
-                                <Link to={"/admin/companines"}>
-                                    <div className='font-bold text-3xl cursor-pointer'>
-                                        <span className='text-4xl'>👜</span> Hire<span className='text-[#159788]'>Hub</span>
-                                    </div>
-                                </Link>
-                                :
-                                <Link to={"/"}>
-                                <div className='font-bold text-3xl cursor-pointer'>
-                                    <span className='text-4xl'>👜</span> Hire<span className='text-[#159788]'>Hub</span>
-                                </div>
-                            </Link>
+                                    <Link to={"/admin/companines"}>
+                                        <div className='font-bold text-3xl cursor-pointer'>
+                                            <span className='text-4xl'>👜</span> Hire<span className='text-[#159788]'>Hub</span>
+                                        </div>
+                                    </Link>
+                                    :
+                                    <Link to={"/"}>
+                                        <div className='font-bold text-3xl cursor-pointer'>
+                                            <span className='text-4xl'>👜</span> Hire<span className='text-[#159788]'>Hub</span>
+                                        </div>
+                                    </Link>
                     }
                     <div className='flex items-center gap-5'>
                         {/* Desktop Menu */}
@@ -72,18 +73,31 @@ const Navbar = () => {
                                     <li><NavLink to={"/admin/jobs"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Jobs</NavLink></li>
                                 </>
                             ) :
-                                authUser && authUser.role === "jobSeeker" &&
-                                (
-                                    <>
-                                        <li><NavLink to={"/"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Home</NavLink></li>
-                                        <li><NavLink to={"/jobs"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Jobs</NavLink></li>
-                                        {/* <li><NavLink to={"/browse"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Browse</NavLink></li> */}
-                                        {
-                                            authUser && authUser.role === "jobSeeker" &&
-                                            <li><NavLink to={"/apply"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Applied Jobs</NavLink></li>
-                                        }
-                                    </>
-                                )
+                                authUser && authUser.role === "jobSeeker" ?
+                                    (
+                                        <>
+                                            <li><NavLink to={"/"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Home</NavLink></li>
+                                            <li><NavLink to={"/jobs"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Jobs</NavLink></li>
+                                            {/* <li><NavLink to={"/browse"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Browse</NavLink></li> */}
+                                            {
+                                                authUser && authUser.role === "jobSeeker" &&
+                                                <li><NavLink to={"/apply"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Applied Jobs</NavLink></li>
+                                            }
+                                        </>
+                                    )
+                                    :
+                                    authUser && authUser.role === "admin" ?
+                                        (
+                                            ""
+                                        )
+                                        :
+
+                                        (
+                                            <>
+                                                <li><NavLink to={"/"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Home</NavLink></li>
+                                                <li><NavLink to={"/jobs"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Jobs</NavLink></li>
+                                            </>
+                                        )
                                 // :
                                 // <li><NavLink to={"/mainAdmin/dashboard"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Home</NavLink></li>
                             }
@@ -92,26 +106,26 @@ const Navbar = () => {
                         {/* Mobile Menu */}
                         {/* Mobile Menu */}
                         <div className='md:hidden'>
-                            {authUser && (
-                                <Popover>
-                                    <PopoverTrigger>
-                                        {
-                                            authUser && authUser.role === "admin" ?
-                                                ""
-                                                :
-                                                <MenuIcon className="h-6 w-6 text-gray-700 cursor-pointer" />
-                                        }
-                                    </PopoverTrigger>
-                                    <PopoverContent className='flex flex-col gap-2'>
-                                        {authUser && authUser.role === "employer" ? (
-                                            <>
-                                                <ul>
-                                                    <li className='mx-3 mb-5' ><NavLink to={"/admin/companines"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700 `}>Companies</NavLink></li>
-                                                    <li className='mx-3' ><NavLink to={"/admin/jobs"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Jobs</NavLink></li>
-                                                </ul>
-                                            </>
-                                        ) :
-                                            authUser && authUser.role === "jobSeeker" &&
+
+                            <Popover>
+                                <PopoverTrigger>
+                                    {
+                                        authUser && authUser.role === "admin" ?
+                                            ""
+                                            :
+                                            <MenuIcon className="h-6 w-6 text-gray-700 cursor-pointer" />
+                                    }
+                                </PopoverTrigger>
+                                <PopoverContent className='flex flex-col gap-2'>
+                                    {authUser && authUser.role === "employer" ? (
+                                        <>
+                                            <ul>
+                                                <li className='mx-3 mb-5' ><NavLink to={"/admin/companines"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700 `}>Companies</NavLink></li>
+                                                <li className='mx-3' ><NavLink to={"/admin/jobs"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Jobs</NavLink></li>
+                                            </ul>
+                                        </>
+                                    ) :
+                                        authUser && authUser.role === "jobSeeker" ?
                                             (
                                                 <>
                                                     <ul className=''>
@@ -123,10 +137,18 @@ const Navbar = () => {
                                                         }
                                                     </ul>
                                                 </>
-                                            )}
-                                    </PopoverContent>
-                                </Popover>
-                            )}
+                                            )
+                                            :
+                                            <>
+                                                <ul className=''>
+                                                    <li className='mx-3 mb-5'><NavLink to={"/"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Home</NavLink></li>
+                                                    <li className='mx-3 mb-5'><NavLink to={"/jobs"} className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:text-orange-700`}>Jobs</NavLink></li>
+                                                </ul>
+                                            </>
+                                    }
+                                </PopoverContent>
+                            </Popover>
+
                         </div>
 
 
@@ -158,8 +180,11 @@ const Navbar = () => {
                                         </Avatar>
                                         <div>
                                             <h2>{authUser.fullName}</h2>
-                                            <p className='text-sm text-muted-foreground'>Bio: {authUser.bio}.</p>
+                                            <p className='text-sm text-muted-foreground'>
+                                                Bio: {authUser?.bio ? `${authUser.bio.substring(0, 30)}...` : "Enter your Bio"}
+                                            </p>
                                         </div>
+
                                     </div>
                                     <div className='flex items-center'>
                                         <UserIcon className="h-6 w-6 text-gray-500 mt-4 mx-2" />

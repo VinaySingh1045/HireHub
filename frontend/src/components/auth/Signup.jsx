@@ -191,7 +191,7 @@ const Signup = () => {
                                     className="form-radio text-indigo-600 cursor-pointer"
                                     required
                                 />
-                                <span className="ml-2">Employer</span>
+                                <span className="ml-2">Employer / HR</span>
                             </label>
                         </div>
 

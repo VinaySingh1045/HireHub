@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 .bg-hero {
-  background-image: url("/banner.png");
+  /* background-image: url("/banner.png"); */
+  /* background-image: url("/image1.png"); */
+  background-image: url("/image.png");
 }
 /* .bg-hero {
   background-image: url('https://jthemes.com/themes/wp/jobbox/wp-content/uploads/2023/03/banner.png ');

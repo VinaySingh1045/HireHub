@@ -39,7 +39,7 @@ const Home = () => {
       <div className=' bg-[#f3f4f6]'>
         <section className="relative bg-hero bg-cover bg-center h-screen flex flex-col justify-center items-center text-center text-white">
           {/* Dim overlay */}
-          <div className="absolute inset-0 bg-black opacity-[0.7]"></div>
+          <div className="absolute inset-0 bg-black opacity-[0.55]"></div>
 
           <div className="relative z-10 px-4">
             <h1 className="text-3xl md:text-5xl font-bold mb-4">Find Your <span className='text-[#159788]'> Dream Job </span> Today!</h1>

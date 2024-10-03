@@ -130,7 +130,7 @@ const AddJobsByCompanyId = () => {
 
                         <div>
                             <label className="block text-lg font-medium text-gray-700 mb-2" htmlFor="salary">
-                                Salary
+                                Salary (LPA)
                             </label>
                             <input
                                 type="text"

@@ -141,7 +141,7 @@ const Login = () => {
                             </label>
                             <label className="inline-flex items-center ml-6 cursor-pointer">
                                 <input type="radio" name="role" value="employer" checked={userData.role === "employer"} onChange={handleChange} className="form-radio text-indigo-600 cursor-pointer" required />
-                                <span className="ml-2">Employer</span>
+                                <span className="ml-2">Employer / HR</span>
                             </label>
                             <label className="inline-flex items-center ml-6 cursor-pointer">
                                 <input type="radio" name="role" value="admin" checked={userData.role === "admin"} onChange={handleChange} className="form-radio text-indigo-600 cursor-pointer" required />

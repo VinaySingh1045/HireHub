@@ -22,7 +22,7 @@ const Browse = () => {
 
 
   return (
-    <div>
+    <div className='min-h-screen'>
 
       <div className='flex gap-10 items-center'>
         <Button onClick={() => navigate("/")} variant="outline" className="ml-7 w-fit flex justify-center items-center gap-2 text-gray-500 font-semibold border border-gray-300 hover:bg-gray-100">

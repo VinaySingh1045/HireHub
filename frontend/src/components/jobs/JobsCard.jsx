@@ -21,6 +21,15 @@ const JobsCard = ({ job }) => {
         return Math.floor(timeDifference / (1000 * 24 * 60 * 60));
     };
 
+    const handleSaveLater = () => {
+        if (!user) {
+            toast.error("Please sign in to save this job");
+            return;
+        }else{
+            toast.success("Coming Soon!");
+        }
+    }
+
     return (
         <>
             <div className='p-5 rounded-lg shadow-lg bg-white border border-gray-200 hover:shadow-2xl transition-shadow duration-300 ease-in-out cursor-pointer mb-4'>
@@ -53,7 +62,7 @@ const JobsCard = ({ job }) => {
                 <div className='flex items-center gap-2 mt-4'>
                     <Badge className='text-blue-700 font-bold' variant="ghost">{job?.location || "HR Positions"}</Badge>
                     <Badge className='text-[#F83002] font-bold' variant="ghost">{job?.type || "Full-Time"}</Badge>
-                    <Badge className='text-[#7209b7] font-bold' variant="ghost">{job?.salary || "500000 LPA"}</Badge>
+                    {/* <Badge className='text-[#7209b7] font-bold' variant="ghost">{job?.salary || "500000 LPA"}</Badge> */}
                 </div>
                 <div className='flex items-center gap-4 mt-4'>
                     <Button onClick={() => {
@@ -65,7 +74,7 @@ const JobsCard = ({ job }) => {
                     }} variant="outline">
                         Details
                     </Button>
-                    <Button className="bg-[#159788] text-white">Save For Later</Button>
+                    <Button onClick={handleSaveLater} className="bg-[#159788] text-white">Save For Later</Button>
                 </div>
             </div>
         </>
