@@ -122,8 +122,8 @@ const Home = () => {
             {/* Left Section with Images */}
             <div className="relative w-full lg:w-1/2 mb-8 lg:mb-0">
               <img
-                src="https://jthemes.com/themes/wp/jobbox/wp-content/uploads/2023/03/about-center.png"
-                alt="Group"
+                src="https://st4.depositphotos.com/13194036/31587/i/450/depositphotos_315873928-stock-photo-selective-focus-happy-businessman-glasses.jpg"
+                alt="https://thumbs.dreamstime.com/b/happy-business-people-meeting-concept-blurred-background-horizontal-happy-business-people-meeting-concept-blurred-background-118025414.jpg"
                 className="w-[70%] mx-auto lg:ml-20 rounded-lg shadow-lg"
               />
             </div>
