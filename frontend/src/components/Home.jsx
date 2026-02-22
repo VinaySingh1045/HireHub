@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import JobsCard from './jobs/JobsCard'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from './ui/button'
 import { ArrowRight, Search } from 'lucide-react'
@@ -13,10 +12,18 @@ import BlogCard from './blogs/BlogCard'
 const Home = () => {
 
   const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(true);
   const { user } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 800); // small delay for smooth UX
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSearchJob = () => {
     if (!user) {
@@ -34,6 +41,14 @@ const Home = () => {
 
   // useGetAllJobs();
   useGetAllJobss();
+
+  if (loading) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-[#f3f4f6]">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#159788] border-solid"></div>
+      </div>
+    );
+  }
   return (
     <>
       <div className=' bg-[#f3f4f6]'>

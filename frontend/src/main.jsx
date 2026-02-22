@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './components/Layout.jsx'
@@ -9,7 +8,6 @@ import Login from './components/auth/Login.jsx'
 import Signup from './components/auth/Signup.jsx'
 import { Toaster } from './components/ui/sonner.jsx'
 import Profile from './components/userProfile/Profile.jsx'
-import JobsCard from './components/jobs/JobsCard.jsx'
 import Jobs from './components/jobs/Jobs.jsx'
 import Browse from './components/Browse.jsx'
 import JobsDescription from './components/appliedjob/JobsDescription.jsx'
@@ -141,29 +139,29 @@ const router = createBrowserRouter([
 
       {
         path: "/mainAdmin/dashboard",
-        element: <Dashboard/>
+        element: <Dashboard />
       },
 
       {
         path: "/mainAdmin/dashboard/getPendingCompanies",
-        element: <GetPendingCompanines/>
+        element: <GetPendingCompanines />
       },
 
       {
         path: "/mainAdmin/dashboard/getPendingJobs",
-        element: <GetPendingJobs/>
+        element: <GetPendingJobs />
       },
       {
         path: "/mainAdmin/dashboard/getAllUsers",
-        element: <GetAllUsers/>
+        element: <GetAllUsers />
       },
       {
         path: "/mainAdmin/dashboard/getAllEmployers",
-        element: <GetAllEmployer/>
+        element: <GetAllEmployer />
       },
       {
         path: "/mainAdmin/dashboard/getAllJobSeekerUsers",
-        element: <GetAllJobSeekerUsers/>
+        element: <GetAllJobSeekerUsers />
       },
 
     ]
@@ -177,7 +175,11 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* <App /> */}
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persist} >
+      <PersistGate loading={
+        <div className="h-screen flex items-center justify-center bg-[#f3f4f6]">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#159788] border-solid"></div>
+        </div>
+      } persistor={persist} >
         <RouterProvider router={router} />
       </PersistGate>
     </Provider>
